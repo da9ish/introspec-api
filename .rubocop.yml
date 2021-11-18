@@ -1,0 +1,258 @@
+require:
+  - rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 2.7
+  Exclude:
+    - "bin/**/*"
+    - "tmp/**/*"
+    - ".bundle/**/*"
+    - "vendor/**/*"
+    - "log/**/*"
+    - "node_modules/**/*"
+    - "db/schema.rb"
+    - "Guardfile"
+    - "app/controllers/active_storage/disk_controller.rb"
+
+# Generous size limits
+Metrics/MethodLength:
+  Max: 20
+  CountAsOne: ['array', 'hash', 'heredoc']
+  Exclude:
+    - "db/migrate/*"
+    - "test/**/*"
+    - "app/lib/**/*"
+    - "app/streams/info/*_reducer.rb"
+
+Metrics/BlockLength:
+  Max: 18
+  CountAsOne: ['array', 'hash', 'heredoc']
+  Exclude:
+    - "db/**/*"
+    - "config/initializers/*"
+    - "config/environments/development.rb"
+    - "config/environments/production.rb"
+
+Metrics/ClassLength:
+  Max: 250
+  CountAsOne: ['array', 'hash', 'heredoc']
+  Exclude:
+    - "db/migrate/*"
+    - "test/**/*"
+
+Metrics/ModuleLength:
+  Exclude:
+    - "app/lib/event_engine/*"
+
+Metrics/ParameterLists:
+  Max: 4
+  CountKeywordArgs: false
+
+# Allow reasonably complex code
+Metrics/AbcSize:
+  Max: 55
+  Exclude:
+    - "db/migrate/*"
+    - "test/**/*"
+    - "app/streams/info/*_reducer.rb"
+    - "app/commands/info/imports/import_*.rb"
+
+Metrics/CyclomaticComplexity:
+  Max: 18
+  Exclude:
+    - "app/streams/info/*_reducer.rb"
+    - "app/commands/info/imports/import_*.rb"
+
+Metrics/PerceivedComplexity:
+  Max: 18
+  Exclude:
+    - "app/commands/info/imports/import_*.rb"
+
+Layout/HashAlignment:
+  EnforcedHashRocketStyle: table
+  EnforcedColonStyle: table
+
+Layout/LineLength:
+  Max: 250
+  Exclude:
+    - "db/migrate/*"
+    - "test/**/*"
+
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - development
+    - test
+    - staging
+
+# Minimally override style
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/Documentation:
+  Enabled: false
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/FormatStringToken:
+  Enabled: false
+
+Naming/MethodParameterName:
+  AllowedNames:
+    - "if"
+
+# lints with no defaults
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+
+Lint/MixedRegexpCaptureTypes:
+  Enabled: true
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Style/AccessorGrouping:
+  Enabled: true
+
+Style/BisectedAttrAccessor:
+  Enabled: true
+
+Style/ExponentialNotation:
+  Enabled: true
+
+Style/RedundantAssignment:
+  Enabled: true
+
+Style/RedundantFetchBlock:
+  Enabled: false
+
+Style/RedundantRegexpCharacterClass:
+  Enabled: true
+
+Style/RedundantRegexpEscape:
+  Enabled: true
+
+Style/SlicingWithRange:
+  Enabled: true
+
+Lint/DuplicateElsifCondition:
+  Enabled: true
+
+Style/ArrayCoercion:
+  Enabled: true
+
+Style/CaseLikeIf:
+  Enabled: true
+
+Style/HashAsLastArrayItem:
+  Enabled: true
+
+Style/HashLikeCase:
+  Enabled: true
+
+Style/RedundantFileExtensionInRequire:
+  Enabled: true
+  
+Rails/ActiveRecordCallbacksOrder:
+  Enabled: true
+
+Rails/AfterCommitOverride:
+  Enabled: true
+
+Rails/FindById:
+  Enabled: true
+
+Rails/Inquiry:
+  Enabled: false
+
+Rails/MailerName:
+  Enabled: true
+
+Rails/MatchRoute:
+  Enabled: true
+
+Rails/NegateInclude:
+  Enabled: true
+
+Rails/Pluck:
+  Enabled: false
+
+Rails/PluckInWhere:
+  Enabled: true
+
+Rails/RenderInline:
+  Enabled: true
+
+Rails/RenderPlainText:
+  Enabled: true
+
+Rails/ShortI18n:
+  Enabled: true
+
+Rails/SquishedSQLHeredocs:
+  Enabled: true
+
+Rails/WhereExists:
+  Enabled: false
+
+Rails/WhereNot:
+  Enabled: true
+
+Lint/BinaryOperatorWithIdenticalOperands:
+  Enabled: true
+
+Lint/DuplicateRescueException:
+  Enabled: true
+
+Lint/EmptyConditionalBody:
+  Enabled: true
+
+Lint/FloatComparison:
+  Enabled: true
+
+Lint/MissingSuper:
+  Enabled: false
+
+Lint/OutOfRangeRegexpRef:
+  Enabled: true
+
+Lint/SelfAssignment:
+  Enabled: true
+
+Lint/TopLevelReturnWithArgument:
+  Enabled: true
+
+Lint/UnreachableLoop:
+  Enabled: true
+
+Style/ExplicitBlockArgument:
+  Enabled: true
+
+Style/GlobalStdStream:
+  Enabled: false
+
+Style/OptionalBooleanParameter:
+  Enabled: true
+
+Style/SingleArgumentDig:
+  Enabled: false
+
+Style/StringConcatenation:
+  Enabled: false
+
