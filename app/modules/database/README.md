@@ -1,7 +1,7 @@
 ### Filter API
-`and -> [{$col_name: {$operation: $value}}]`
+`and -> [ { $col_name: { $operation: $value } } ]`
 
-`or -> [{$col_name: {$operation: $value}}]`
+`or -> [ { $col_name: { $operation: $value } } ]`
 
 example:
 ```javascript

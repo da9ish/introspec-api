@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SessionsController < Devise::SessionsController
   include ActionController::MimeResponds
   before_action :configure_permitted_parameters, if: -> { action_name == "create" }

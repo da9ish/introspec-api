@@ -17,6 +17,7 @@ module Storage
 
     def create_storage(region_name, bucket_name)
       create_bucket(bucket_name)
+
       ::Storage::Instance.new(region: region_name, identifier: bucket_name)
     end
 
@@ -27,7 +28,7 @@ module Storage
     end
 
     def bucket_exist?
-      ::Storage::Instance.where(workspace_id: Current.workspace.id).exist?
+      instance.exist?
     end
 
     def instance

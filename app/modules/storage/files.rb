@@ -12,10 +12,10 @@ module Storage
 
     delegate :get_file, to: :storage
 
+    delegate :delete_file, to: :storage
+
     def upload_file(body, file_name, tags)
       storage.put_file(body, file_name, tags)
     end
-
-    delegate :delete_file, to: :storage
   end
 end
