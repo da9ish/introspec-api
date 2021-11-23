@@ -10,6 +10,8 @@ module Database
     # - destroyUser
     # where table = 'user'
 
+    # TODO: add support for import and export to and from csv/excel
+
     def initialize
       # TODO: Add pg gem and get db url from config
       @database = pg.connect(**config)
@@ -63,10 +65,12 @@ module Database
       # TODO: implement pagination
 
       query += ";"
+      @database.exec(query)
     end
 
     def get(table, id)
-      "SELECT * FROM #{table} WHERE id = #{id}"
+      query = "SELECT * FROM #{table} WHERE id = #{id}"
+      @database.exec(query)
     end
 
     def create(table, values)
@@ -78,7 +82,8 @@ module Database
     end
 
     def destroy(table, id)
-      "DELETE FROM #{table} WHERE id = #{id}"
+      query = "DELETE FROM #{table} WHERE id = #{id}"
+      @database.exec(query)
     end
 
     private

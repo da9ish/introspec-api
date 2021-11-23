@@ -2,6 +2,7 @@ require:
   - rubocop-rails
 
 AllCops:
+  NewCops: enable
   TargetRubyVersion: 2.7
   Exclude:
     - "bin/**/*"
@@ -107,6 +108,7 @@ Style/FormatStringToken:
 Naming/MethodParameterName:
   AllowedNames:
     - "if"
+    - "id"
 
 # lints with no defaults
 Layout/EmptyLinesAroundAttributeAccessor:
