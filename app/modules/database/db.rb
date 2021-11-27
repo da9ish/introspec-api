@@ -2,6 +2,9 @@
 
 module Database
   class DB < ::Configuration
+    
+    # Carefull here, we are executing raw query against db, need to santize all inputs
+    
     # GraphQL API structure will be:
     # - userList
     # - getUser
@@ -13,18 +16,24 @@ module Database
     # TODO: add support for import and export to and from csv/excel
 
     def initialize
-      # TODO: Add pg gem and get db url from config
-      @database = pg.connect(**config)
+      # TODO: get configuration and establish connection
+      @database = ActiveRecord::Base.establish_connection(
+        :adapter=> "postgresql",
+        :host => "localhost",
+        :database=> "articles",
+        :username=> "",
+        :password=> ""
+      )
     end
 
-    def list(table, filter, order, _page, page_size)
+    def list(table, filters, orders, _page, page_size)
       # TODO:  check if table exist in our db
       query = "SELECT * FROM #{table}"
 
-      if filter.count.positive?
+      if filters.count.positive?
         # TODO:  check for subsequent 'and' and 'or' filter
         filter_query = ""
-        filter_query += filter.map.with_index do |f, _idx|
+        filter_query += filters.map.with_index do |f, _idx|
           col_name, value_obj = f.entries.first
           operation, value = value_obj.entries.first
           # TODO:  check for each operation and its value
@@ -49,9 +58,9 @@ module Database
         query += " WHERE #{filter_query}"
       end
 
-      if order.count.positive?
+      if orders.count.positive?
         order_query = ""
-        order_query += order.map.with_index do |o, _idx|
+        order_query += orders.map.with_index do |o, _idx|
           col_name, direction = o.entries.first
 
           "#{col_name} #{direction}"

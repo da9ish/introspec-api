@@ -32,7 +32,7 @@ module Storage
     end
 
     def instance
-      @instance ||= ::Storage.where(workspace_id: Current.workspace.id).first
+      @instance ||= ::Storage::Instance.find_by_workspace_id(workspace_id: Current.workspace.id)
     end
   end
 end

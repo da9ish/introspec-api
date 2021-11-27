@@ -10,6 +10,6 @@ module Authentication
   private
 
   def auth
-    Current.user = current_user
+    # Current.user = current_user
   end
 end

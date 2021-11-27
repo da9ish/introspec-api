@@ -1,7 +1,29 @@
-### Filter API
-`and -> [ { $col_name: { $operation: $value } } ]`
+### Database
 
-`or -> [ { $col_name: { $operation: $value } } ]`
+We basically need to create a UI for active records. Users will be creating tables and adding columns, indexes and model level attributes (field resolvers) along with database validations. We need to dynamically craete the following active record classes (Meta-Programming :D): 
+
+- Schema
+- Migrations
+- Models
+
+lets call this DynamicRecords
+
+### Operations
+We'll provide a basic list of operations of every resource in db
+
+#### List
+#### Aggregate
+#### Get
+#### Create
+#### Update
+#### Delete
+
+### Filter API
+```javascript
+{ and: [ { $col_name: { $operation: $value } } ] }
+
+{ or: [ { $col_name: { $operation: $value } } ] }
+```
 
 example:
 ```javascript
@@ -36,10 +58,16 @@ filter: {
 - less_than_or_equal
 
 ### Order API
-`order -> [{$col_name: 'asc' | 'desc'}]`
+```javascript
+{ order: [ { $col_name: 'asc' | 'desc' } ] }
+```
 
 #### Page
+```javascript
 page -> number
+```
 
 #### Page Size
+```javascript
 page_size -> number
+```

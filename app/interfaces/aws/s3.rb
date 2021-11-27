@@ -7,7 +7,7 @@ module AWS
 
     def initialize(region_name, credentials, identifier)
       @identifier = identifier || ""
-      @client = Aws::RDS::Client.new(
+      @client = Aws::S3::Client.new(
         region:      region_name,
         credentials: credentials
       )

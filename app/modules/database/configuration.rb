@@ -4,6 +4,10 @@ module Database
   class Configuration
     # get current workspace config for database and initialize rds interface
 
+    # transaction
+    # migration
+    # 
+
     attr_reader :db
 
     def initialize
@@ -20,6 +24,13 @@ module Database
 
       # hash the password before saving
       ::Database::Instance.new(identifier: db_name, region: region_name, username: username, password: password)
+    end
+
+    def execute
+      DB.transaction do
+        yeild
+        raise Sequel::Rollback
+      end
     end
 
     private

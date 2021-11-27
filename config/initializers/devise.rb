@@ -14,17 +14,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '1ff26b0e5e8bad98b557a06bf47727e25c151c3813df23c222615a664e4b998334a6bae1fcf9028c0733ec9daa37b3549d2e316d5308036c08287ed262d854f1'
-
-  config.jwt do |jwt|
-    jwt.secret = "local" * 8
-    jwt.secret = "testing" * 8 if Rails.env.test?
-    jwt.secret = "staging" * 8 if Rails.env.staging?
-    jwt.secret = Rails.application.credentials.production_jwt_secret if Rails.env.production?
-    raise "devise jwt.secret is invalid" if jwt.secret.blank? || jwt.secret.to_s.length < 8
-
-    jwt.expiration_time = 1.day
-  end
+  # config.secret_key = 'bf7067ab8685453c0d60b986f8f0094bbc333d3e9533fedf25b5820af72eda6ea2108c5aa0f99a891d1bd536437e122ed3cee89f9193f86b840e174207a91dd8'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -34,7 +24,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = "please-change-me-at-config-initializers-devise@example.com"
+  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -46,7 +36,7 @@ Devise.setup do |config|
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
-  require "devise/orm/active_record"
+  require 'devise/orm/active_record'
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
@@ -56,7 +46,7 @@ Devise.setup do |config|
   # session. If you need permissions, you should implement that in a before filter.
   # You can also supply a hash where the value is a boolean determining whether
   # or not authentication should be aborted when the value is not present.
-  config.authentication_keys = [:email]
+  # config.authentication_keys = [:email]
 
   # Configure parameters from the request object used for authentication. Each entry
   # given should be a request method and it will automatically be passed to the
@@ -136,7 +126,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 12
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = '2f5a06c13611385d8a2d58a040d2db52dd91079ef425cc8db6cac6072c70ac01a9ce2ce6b48306b1574b56e6c28b2a120d1088bb0cbc1f21a9d3fa66161159a0'
+  # config.pepper = '97d6149c00cd999257292be5e0b50e85c30823cc089ac302ae108c42e8f637cbf79bcd6ed0de3dd23845024a0f5976b674602b9b8d41105144009bbc6c88bab5'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -273,7 +263,7 @@ Devise.setup do |config|
   # should add them to the navigational formats lists.
   #
   # The "*/*" below is required to match Internet Explorer requests.
-  config.navigational_formats = []
+  # config.navigational_formats = ['*/*', :html]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete

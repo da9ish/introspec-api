@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
-  include ::Authentication
+  include GraphqlDevise::Concerns::SetUserByToken
 
-  before_action :authenticate_user!
+  # include ::Authentication
+
+  # before_action :authenticate_user!
 end
