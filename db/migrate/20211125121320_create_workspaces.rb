@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AddWorkspacesTable < ActiveRecord::Migration[6.1]
+class CreateWorkspaces < ActiveRecord::Migration[6.1]
   def change
     create_table :workspaces do |t|
       t.string :identifier, null: false
