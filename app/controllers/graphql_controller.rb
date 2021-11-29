@@ -4,6 +4,8 @@ class GraphqlController < ApplicationController
   # but you'll have to authenticate your user separately
   # protect_from_forgery with: :null_session
 
+  before_action -> { set_resource_by_token(User)}
+
   def execute
     query = params[:query]
     result = IntrospecApiSchema.execute(query, **execute_params(params))
