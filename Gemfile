@@ -12,8 +12,7 @@ gem "sqlite3", "~> 1.4"
 # Use Puma as the app server
 gem "devise", "~> 4.8"
 gem 'graphql_devise', '~> 0.17.1'
-gem 'devise_token_auth', '~> 1.2'
-gem "devise-jwt", "~> 0.8.0"
+gem 'devise_token_auth', '~> 1.1.5'
 gem 'omniauth', '~> 2.0', '>= 2.0.4'
 
 gem "puma", "~> 5.0"
