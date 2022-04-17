@@ -2,9 +2,8 @@
 
 module Database
   class DB < ::Configuration
-    
     # Carefull here, we are executing raw query against db, need to santize all inputs
-    
+
     # GraphQL API structure will be:
     # - userList
     # - getUser
@@ -18,11 +17,11 @@ module Database
     def initialize
       # TODO: get configuration and establish connection
       @database = ActiveRecord::Base.establish_connection(
-        :adapter=> "postgresql",
-        :host => "localhost",
-        :database=> "articles",
-        :username=> "",
-        :password=> ""
+        adapter:  "postgresql",
+        host:     "localhost",
+        database: "articles",
+        username: "",
+        password: ""
       )
     end
 

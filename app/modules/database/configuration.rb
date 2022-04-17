@@ -6,7 +6,7 @@ module Database
 
     # transaction
     # migration
-    # 
+    #
 
     attr_reader :db
 

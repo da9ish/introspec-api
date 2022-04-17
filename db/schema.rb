@@ -10,10 +10,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_25_121320) do
+ActiveRecord::Schema.define(version: 2022_01_22_122312) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "columns", force: :cascade do |t|
+    t.string "identifier", null: false
+    t.string "name", null: false
+    t.string "data_type", null: false
+    t.string "contraints", default: [], array: true
+    t.boolean "index", default: false
+    t.bigint "table_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["table_id"], name: "index_columns_on_table_id"
+  end
+
+  create_table "databases", force: :cascade do |t|
+    t.string "identifier", null: false
+    t.string "name", null: false
+    t.bigint "environment_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["environment_id"], name: "index_databases_on_environment_id"
+  end
+
+  create_table "environments", force: :cascade do |t|
+    t.string "identifier", null: false
+    t.string "name", null: false
+    t.bigint "workspace_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["workspace_id"], name: "index_environments_on_workspace_id"
+  end
+
+  create_table "tables", force: :cascade do |t|
+    t.string "identifier", null: false
+    t.string "name", null: false
+    t.string "indexes", default: [], array: true
+    t.string "contraints", default: [], array: true
+    t.bigint "databases_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["databases_id"], name: "index_tables_on_databases_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
@@ -41,9 +82,11 @@ ActiveRecord::Schema.define(version: 2021_11_25_121320) do
     t.string "identifier", null: false
     t.string "name", null: false
     t.string "public_api_key"
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["identifier"], name: "index_workspaces_on_identifier", unique: true
+    t.index ["user_id"], name: "index_workspaces_on_user_id"
   end
 
 end

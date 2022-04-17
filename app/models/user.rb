@@ -2,9 +2,9 @@
 
 class User < ApplicationRecord
   extend Devise::Models
-  
+
   devise :recoverable, :omniauthable,
-    :database_authenticatable, :registerable
+         :database_authenticatable, :registerable
 
   include GraphqlDevise::Concerns::Model
   include DeviseTokenAuth::Concerns::User
