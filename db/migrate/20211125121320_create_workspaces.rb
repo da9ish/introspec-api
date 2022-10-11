@@ -6,7 +6,6 @@ class CreateWorkspaces < ActiveRecord::Migration[6.1]
       t.string :identifier, null: false
       t.string :name, null: false
       t.string :public_api_key
-      t.references :user
 
       t.timestamps null: false
     end

@@ -1,0 +1,6 @@
+column_name:
+  identifier: 'name'
+  name: 'Name'
+  data_type: 'VARCHAR'
+  contraints: [UNIQUE]
+  table: table_user

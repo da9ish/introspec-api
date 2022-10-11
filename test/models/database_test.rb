@@ -3,7 +3,10 @@
 require "test_helper"
 
 class DatabaseTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  %i[introspec_api].each do |database|
+    test "databases(:#{database}) is valid" do
+      model = databases(database)
+      assert model.valid?, "Expected databases(:#{database}) to be valid, got errors: #{model.errors.full_messages.to_sentence}"
+    end
+  end
 end

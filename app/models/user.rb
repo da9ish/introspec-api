@@ -6,6 +6,10 @@ class User < ApplicationRecord
   devise :recoverable, :omniauthable,
          :database_authenticatable, :registerable
 
-  include GraphqlDevise::Concerns::Model
+  def self.introspec_bot
+    @introspec_bot ||= readonly.find_by(username: "introspec_bot")
+  end
+
+  include GraphqlDevise::Model
   include DeviseTokenAuth::Concerns::User
 end

@@ -7,9 +7,11 @@ class CreateTables < ActiveRecord::Migration[6.1]
       t.string :name, null: false
       t.string :indexes, array: true, default: []
       t.string :contraints, array: true, default: []
-      t.references :databases
+      t.references :database
 
       t.timestamps
     end
+
+    add_index :tables, :identifier, unique: true
   end
 end

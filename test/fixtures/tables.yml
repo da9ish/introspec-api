@@ -1,0 +1,6 @@
+table_user:
+  identifier: 'user'
+  name: 'Users'
+  indexes: ['id']
+  contraints: []
+  database: introspec_api

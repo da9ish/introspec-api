@@ -9,5 +9,7 @@ class CreateEnvironments < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
+
+    add_index :environments, :identifier, unique: true
   end
 end

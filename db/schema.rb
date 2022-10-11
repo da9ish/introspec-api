@@ -20,10 +20,10 @@ ActiveRecord::Schema.define(version: 2022_01_22_122312) do
     t.string "name", null: false
     t.string "data_type", null: false
     t.string "contraints", default: [], array: true
-    t.boolean "index", default: false
     t.bigint "table_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["identifier"], name: "index_columns_on_identifier", unique: true
     t.index ["table_id"], name: "index_columns_on_table_id"
   end
 
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2022_01_22_122312) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["environment_id"], name: "index_databases_on_environment_id"
+    t.index ["identifier"], name: "index_databases_on_identifier", unique: true
   end
 
   create_table "environments", force: :cascade do |t|
@@ -42,6 +43,7 @@ ActiveRecord::Schema.define(version: 2022_01_22_122312) do
     t.bigint "workspace_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["identifier"], name: "index_environments_on_identifier", unique: true
     t.index ["workspace_id"], name: "index_environments_on_workspace_id"
   end
 
@@ -50,10 +52,11 @@ ActiveRecord::Schema.define(version: 2022_01_22_122312) do
     t.string "name", null: false
     t.string "indexes", default: [], array: true
     t.string "contraints", default: [], array: true
-    t.bigint "databases_id"
+    t.bigint "database_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["databases_id"], name: "index_tables_on_databases_id"
+    t.index ["database_id"], name: "index_tables_on_database_id"
+    t.index ["identifier"], name: "index_tables_on_identifier", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -82,11 +85,9 @@ ActiveRecord::Schema.define(version: 2022_01_22_122312) do
     t.string "identifier", null: false
     t.string "name", null: false
     t.string "public_api_key"
-    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["identifier"], name: "index_workspaces_on_identifier", unique: true
-    t.index ["user_id"], name: "index_workspaces_on_user_id"
   end
 
 end
