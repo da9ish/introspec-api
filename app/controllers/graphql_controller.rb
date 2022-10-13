@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class GraphqlController < ApplicationController
+  include GraphqlDevise::SetUserByToken
   # If accessing from outside this domain, nullify the session
   # This allows for outside API access while preventing CSRF attacks,
   # but you'll have to authenticate your user separately
@@ -24,7 +25,7 @@ class GraphqlController < ApplicationController
     {
       operation_name: item[:operationName],
       variables:      prepare_variables(item[:variables]),
-      context:        gql_devise_context(User)
+      context:        gql_devise_context(User),
     }
   end
 

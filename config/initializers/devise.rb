@@ -14,7 +14,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = 'bf7067ab8685453c0d60b986f8f0094bbc333d3e9533fedf25b5820af72eda6ea2108c5aa0f99a891d1bd536437e122ed3cee89f9193f86b840e174207a91dd8'
+  # config.secret_key = '52c3d988b8a09864130d9244950f41d486f5d0f6c25461e7823db454a7898f5f01e8807cb4925467683677b60214149c8b07637caae57c6e7809cc76358a6671'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -24,7 +24,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = "info@introspec.app"
+  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -36,7 +36,7 @@ Devise.setup do |config|
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
-  require "devise/orm/active_record"
+  require 'devise/orm/active_record'
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
@@ -126,7 +126,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 12
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = '97d6149c00cd999257292be5e0b50e85c30823cc089ac302ae108c42e8f637cbf79bcd6ed0de3dd23845024a0f5976b674602b9b8d41105144009bbc6c88bab5'
+  # config.pepper = '9648b1adcdac441341e896b99e37d9ae7cbb5001d8c00a1bd2666c5a6ecb155802d6c702f4b6b43acb6ea704b150dcf4917329365a1c1d9972afb480fb4d4e34'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -157,7 +157,7 @@ Devise.setup do |config|
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
   # db field (see migrations). Until confirmed, new email is stored in
   # unconfirmed_email column, and copied to email column on successful confirmation.
-  config.reconfirmable = false
+  config.reconfirmable = true
 
   # Defines which key will be used when confirming an account
   # config.confirmation_keys = [:email]

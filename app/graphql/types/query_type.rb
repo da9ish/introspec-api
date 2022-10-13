@@ -5,11 +5,15 @@ module Types
     # Add root-level fields here.
     # They will be entry points for queries on your schema.
 
-    # TODO: remove me
-    field :test_field, String, null:        false,
-                               description: "An example field added by the generator"
-    def test_field
-      "Hello World!"
+    field :current_account, ::Types::User, null: true, authenticate: false
+
+    def current_account
+      if context[:current_resource]
+        ap "Authenticated user on public field: #{context[:current_resource].email}"
+        return context[:current_resource]
+      else
+        ap 'Field does not require authentication'
+      end
     end
   end
 end
