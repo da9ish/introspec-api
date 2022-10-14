@@ -11,5 +11,7 @@ class CreateWorkspaces < ActiveRecord::Migration[6.1]
     end
 
     add_index :workspaces, :identifier, unique: true
+    add_index :workspaces, :name, unique: true
+    add_index :workspaces, :public_api_key, unique: true
   end
 end

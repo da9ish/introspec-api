@@ -8,5 +8,5 @@ class Column < ApplicationRecord
   validates :data_type, inclusion: { in: DATA_TYPES, message: "'%{value}' is not one of #{DATA_TYPES.to_sentence}" }
   validates :contraints, array_inclusion: { in: CONSTRAINTS }
 
-  belongs_to :table, class_name: "::Table", foreign_key: "table_id", primary_key: "id", inverse_of: :columns
+  belongs_to :table, class_name: "::Table", primary_key: "id", inverse_of: :columns
 end

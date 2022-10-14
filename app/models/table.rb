@@ -3,6 +3,6 @@
 class Table < ApplicationRecord
   include ::Identifiable
 
-  belongs_to :database, class_name: "::Database", foreign_key: "database_id", primary_key: "id", inverse_of: :tables
-  has_many :columns
+  belongs_to :database, class_name: "::Database", primary_key: "id", inverse_of: :tables
+  has_many :columns, dependent: :destroy
 end

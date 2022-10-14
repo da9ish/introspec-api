@@ -88,6 +88,8 @@ ActiveRecord::Schema.define(version: 2022_01_22_122312) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["identifier"], name: "index_workspaces_on_identifier", unique: true
+    t.index ["name"], name: "index_workspaces_on_name", unique: true
+    t.index ["public_api_key"], name: "index_workspaces_on_public_api_key", unique: true
   end
 
 end

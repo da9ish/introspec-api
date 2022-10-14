@@ -2,7 +2,7 @@
 
 class IntrospecApiSchema < GraphQL::Schema
   use GraphqlDevise::SchemaPlugin.new(
-    query:            Types::QueryType,
+    query:            ::ApplicationQuery,
     mutation:         Types::MutationType,
     resource_loaders: [
       GraphqlDevise::ResourceLoader.new(User)
@@ -10,17 +10,18 @@ class IntrospecApiSchema < GraphQL::Schema
   )
 
   mutation(Types::MutationType)
-  query(Types::QueryType)
+  query(::ApplicationQuery)
 
   # For batch-loading (see https://graphql-ruby.org/dataloader/overview.html)
   use GraphQL::Dataloader
 
   # GraphQL-Ruby calls this when something goes wrong while running a query:
   def self.type_error(err, context)
-    # if err.is_a?(GraphQL::InvalidNullError)
-    #   # report to your bug tracker here
-    #   return nil
-    # end
+    if err.is_a?(GraphQL::InvalidNullError)
+      # report to your bug tracker here
+      return nil
+    end
+
     super
   end
 

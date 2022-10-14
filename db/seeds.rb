@@ -1,27 +1,29 @@
+# frozen_string_literal: true
+
 def say(msg)
   Rails.logger.info ">>> #{msg}"
   send(:puts, msg)
 end
 
 USERS = [
-  { uid: 'Zw9gDWrZc53MLdqgpzL2FsWpAsVUDjtb', username: "introspec_bot", email: 'bot@introspec.app', password: "Q8FUj76mYppUGg69", first_name: 'Introspec', last_name: 'Bot' },
-]
+  { uid: "Zw9gDWrZc53MLdqgpzL2FsWpAsVUDjtb", username: "introspec_bot", email: "bot@introspec.app", password: "Q8FUj76mYppUGg69", first_name: "Introspec", last_name: "Bot" }
+].freeze
 
-WORKSPACES = [{ identifier: 'introspec', name: 'Introspec', public_api_key: SecureRandom.uuid }]
+WORKSPACES = [{ identifier: "introspec", name: "Introspec", public_api_key: SecureRandom.uuid }].freeze
 ENVIRONMENTS = [
-  { identifier: 'develop' , name: 'Develop' },
-  { identifier: 'staging' , name: 'Staging' },
-  { identifier: 'live' , name: 'Live' }
-]
-DATABASES  = [
-  { identifier: 'introspec-api', name: 'Introspec API', }
-]
+  { identifier: "develop", name: "Develop" },
+  { identifier: "staging", name: "Staging" },
+  { identifier: "live", name: "Live" }
+].freeze
+DATABASES = [
+  { identifier: "introspec-api", name: "Introspec API" }
+].freeze
 TABLES = [
-  { identifier: 'user', name: 'User', indexes: %w[id name email], contraints: [] }, 
-  { identifier: 'product', name: 'Product', indexes: %w[id sku], contraints: [] }
-]
+  { identifier: "user", name: "User", indexes: %w[id name email], contraints: [] },
+  { identifier: "product", name: "Product", indexes: %w[id sku], contraints: [] }
+].freeze
 COLUMNS = {
-  user: [
+  user:    [
     { identifier: "id", name: "Id", data_type: "UUID", contraints: [] },
     { identifier: "name", name: "Name", data_type: "VARCHAR", contraints: [] },
     { identifier: "email", name: "Email", data_type: "VARCHAR", contraints: [] }
@@ -30,7 +32,7 @@ COLUMNS = {
     { identifier: "id", name: "Id", data_type: "UUID", contraints: [] },
     { identifier: "sku", name: "SKU", data_type: "VARCHAR", contraints: [] }
   ]
-}
+}.freeze
 
 say "\nSeed: Users"
 USERS.each do |user|
@@ -44,21 +46,18 @@ WORKSPACES.each do |ws|
   say "\nSeed workspace: #{ws[:identifier]}"
   Workspace.create!(ws) unless pre_existing
   say "  * Workspace #{ws[:identifier]} #{pre_existing ? 'found' : 'created'}."
-end
 
-WORKSPACES.each do |ws|
-  workspace = Workspace.find_by(identifier: ws[:identifier])
   ENVIRONMENTS.each do |env|
     pre_existing = Environment.exists?(identifier: env[:identifier])
     say "\nSeed environment: #{env[:identifier]} in workspace #{ws[:identifier]}"
-    Environment.create!(workspace: workspace,  **env) unless pre_existing
+    Environment.create!(workspace: workspace, **env) unless pre_existing
     say "  * Environment #{env[:identifier]} #{pre_existing ? 'found' : 'created'} in workspace #{ws[:identifier]}."
   end
 end
 
 ENVIRONMENTS.each do |env|
   environment = Environment.find_by(identifier: env[:identifier])
-    DATABASES.each do |db|
+  DATABASES.each do |db|
     pre_existing = Database.exists?(identifier: db[:identifier])
     say "\nSeed database: #{db[:identifier]} in env #{env[:identifier]}"
     Database.create!(environment: environment, **db) unless pre_existing
@@ -76,7 +75,7 @@ DATABASES.each do |db|
   end
 end
 
-COLUMNS.keys.each do |tb|
+COLUMNS.each_key do |tb|
   table = Table.find_by(identifier: tb.to_s)
   COLUMNS[tb].each do |col|
     pre_existing = Column.exists?(identifier: col[:identifier])
@@ -85,4 +84,3 @@ COLUMNS.keys.each do |tb|
     say "  * Column #{col[:identifier]} #{pre_existing ? 'found' : 'created'} in table #{tb}.."
   end
 end
-

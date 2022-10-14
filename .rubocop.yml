@@ -46,7 +46,7 @@ Metrics/ModuleLength:
     - "app/lib/event_engine/*"
 
 Metrics/ParameterLists:
-  Max: 4
+  Max: 6
   CountKeywordArgs: false
 
 # Allow reasonably complex code

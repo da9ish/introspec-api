@@ -27,57 +27,21 @@ module Database
 
     def list(table, filters, orders, _page, page_size)
       # TODO:  check if table exist in our db
-      query = "SELECT * FROM #{table}"
+      @query = "SELECT * FROM #{table}"
 
-      if filters.count.positive?
-        # TODO:  check for subsequent 'and' and 'or' filter
-        filter_query = ""
-        filter_query += filters.map.with_index do |f, _idx|
-          col_name, value_obj = f.entries.first
-          operation, value = value_obj.entries.first
-          # TODO:  check for each operation and its value
-          parsed_value = case operation.to_s
-                         when "contains", "not_contains"
-                           "'%#{value}%'"
-                         when "starts_with"
-                           "'%#{value}'"
-                         when "ends_with"
-                           "'#{value}%'"
-                         when "between", "not_between"
-                           "#{value.first} AND #{value.last}"
-                         when "in", "not_in"
-                           "(#{values.join(', ')})"
-                         else
-                           value
-                         end
+      parse_filters(filters)
+      parse_orders(orders)
 
-          "#{col_name} #{operations_map[operation]} #{parsed_value}"
-        end.join(" AND ")
-
-        query += " WHERE #{filter_query}"
-      end
-
-      if orders.count.positive?
-        order_query = ""
-        order_query += orders.map.with_index do |o, _idx|
-          col_name, direction = o.entries.first
-
-          "#{col_name} #{direction}"
-        end.join(",")
-
-        query += " ORDER BY #{order_query}"
-      end
-
-      query += " LIMIT #{page_size}" if page_size.positive?
+      @query += " LIMIT #{page_size}" if page_size.positive?
 
       # TODO: implement pagination
 
-      query += ";"
+      @query += ";"
       @database.exec(query)
     end
 
     def get(table, id)
-      query = "SELECT * FROM #{table} WHERE id = #{id}"
+      @query = "SELECT * FROM #{table} WHERE id = #{id}"
       @database.exec(query)
     end
 
@@ -90,8 +54,8 @@ module Database
     end
 
     def destroy(table, id)
-      query = "DELETE FROM #{table} WHERE id = #{id}"
-      @database.exec(query)
+      @query = "DELETE FROM #{table} WHERE id = #{id}"
+      @database.exec(@query)
     end
 
     private
@@ -122,6 +86,47 @@ module Database
         asc:  "ASC",
         desc: "DESC"
       }
+    end
+
+    # rubocop:disable Metrics/MethodLength
+    def parse_filters(_filter)
+      # TODO:  check for subsequent 'and' and 'or' filter
+      filter_query = ""
+      filter_query += filters.map.with_index do |f, _idx|
+        col_name, value_obj = f.entries.first
+        operation, value = value_obj.entries.first
+        # TODO:  check for each operation and its value
+        parsed_value = case operation.to_s
+                       when "contains", "not_contains"
+                         "'%#{value}%'"
+                       when "starts_with"
+                         "'%#{value}'"
+                       when "ends_with"
+                         "'#{value}%'"
+                       when "between", "not_between"
+                         "#{value.first} AND #{value.last}"
+                       when "in", "not_in"
+                         "(#{values.join(', ')})"
+                       else
+                         value
+                       end
+
+        "#{col_name} #{operations_map[operation]} #{parsed_value}"
+      end.join(" AND ")
+
+      @query += " WHERE #{filter_query}" unless filters.count.positive?
+    end
+    # rubocop:enable Metrics/MethodLength
+
+    def parse_order(orders)
+      order_query = ""
+      order_query += orders.map.with_index do |o, _idx|
+        col_name, direction = o.entries.first
+
+        "#{col_name} #{direction}"
+      end.join(",")
+
+      @query += " ORDER BY #{order_query}" unless orders.count.positive?
     end
   end
 end
