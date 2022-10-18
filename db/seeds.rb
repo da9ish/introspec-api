@@ -34,18 +34,21 @@ COLUMNS = {
   ]
 }.freeze
 
-say "\nSeed: Users"
-USERS.each do |user|
-  pre_existing = User.exists?(username: user[:username])
-  User.create!(user.slice(:username, :password, :email, :first_name, :last_name).merge(password_confirmation: user[:password])) unless pre_existing
-  say "  * User #{user[:username]} #{pre_existing ? 'found' : 'created'}."
-end
 
 WORKSPACES.each do |ws|
   pre_existing = Workspace.exists?(identifier: ws[:identifier])
   say "\nSeed workspace: #{ws[:identifier]}"
   Workspace.create!(ws) unless pre_existing
   say "  * Workspace #{ws[:identifier]} #{pre_existing ? 'found' : 'created'}."
+  
+  workspace = Workspace.find_by(identifier: ws[:identifier])
+
+  USERS.each do |user|
+    pre_existing = User.exists?(username: user[:username])
+    say "\nSeed user: #{user[:username]} in workspace #{ws[:identifier]}"
+    User.create!(workspace: workspace, **user.slice(:username, :password, :email, :first_name, :last_name).merge(password_confirmation: user[:password])) unless pre_existing
+    say "  * User #{user[:username]} #{pre_existing ? 'found' : 'created'}."
+  end
 
   ENVIRONMENTS.each do |env|
     pre_existing = Environment.exists?(identifier: env[:identifier])

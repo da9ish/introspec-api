@@ -70,15 +70,17 @@ ActiveRecord::Schema.define(version: 2022_01_22_122312) do
     t.string "first_name", default: "", null: false
     t.string "last_name", default: "", null: false
     t.string "profile_pic", default: ""
+    t.bigint "workspace_id"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.boolean "allow_password_change", default: false
     t.json "tokens"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["email", "workspace_id"], name: "index_users_on_email_and_workspace_id", unique: true
+    t.index ["reset_password_token", "workspace_id"], name: "index_users_on_reset_password_token_and_workspace_id", unique: true
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
+    t.index ["workspace_id"], name: "index_users_on_workspace_id"
   end
 
   create_table "workspaces", force: :cascade do |t|

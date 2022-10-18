@@ -8,4 +8,5 @@ class Workspace < ApplicationRecord
   end
 
   has_many :environments, dependent: :destroy
+  has_many :users, dependent: :destroy
 end

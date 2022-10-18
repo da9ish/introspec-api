@@ -15,6 +15,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       t.string :first_name, null: false, default: ""
       t.string :last_name, null: false, default: ""
       t.string :profile_pic, default: ""
+      t.references :workspace
 
       ## Recoverable
       t.string   :reset_password_token
@@ -48,8 +49,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       t.timestamps null: false
     end
 
-    add_index :users, :email,                unique: true
-    add_index :users, :reset_password_token, unique: true
+    add_index :users, %i[email workspace_id],                unique: true
+    add_index :users, %i[reset_password_token workspace_id], unique: true
     add_index :users, %i[uid provider], unique: true
     # add_index :users, :confirmation_token,   unique: true
     # add_index :users, :unlock_token,         unique: true

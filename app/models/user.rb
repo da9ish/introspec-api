@@ -9,6 +9,8 @@ class User < ApplicationRecord
   devise :recoverable, :omniauthable,
          :database_authenticatable, :registerable
 
+  belongs_to :workspace, class_name: "::Workspace", primary_key: "id", inverse_of: :users
+
   def self.introspec_bot
     @introspec_bot ||= readonly.find_by(username: "introspec_bot")
   end
