@@ -7,6 +7,7 @@ module Types
     field :first_name, String, null: false
     field :last_name, String, null: false
     field :profile_pic, String, null: true
+    field :workspace, ::Types::Workspace, null: true
 
     field :name, String, null: false
 

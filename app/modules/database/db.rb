@@ -19,9 +19,9 @@ module Database
       @database = ActiveRecord::Base.establish_connection(
         adapter:  "postgresql",
         host:     "localhost",
-        database: "articles",
-        username: "",
-        password: ""
+        database: "introspec_api_development",
+        username: "introspec_api",
+        password: "introspec_api"
       )
     end
 

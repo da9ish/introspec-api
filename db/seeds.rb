@@ -6,7 +6,8 @@ def say(msg)
 end
 
 USERS = [
-  { uid: "Zw9gDWrZc53MLdqgpzL2FsWpAsVUDjtb", username: "introspec_bot", email: "bot@introspec.app", password: "Q8FUj76mYppUGg69", first_name: "Introspec", last_name: "Bot" }
+  { uid: SecureRandom.uuid, username: "introspec_bot", email: "bot@introspec.app", password: "Q8FUj76mYppUGg69", first_name: "Introspec", last_name: "Bot" },
+  { uid: SecureRandom.uuid, username: "da9ish", email: "danish@introspec.app", password: "1234512345", first_name: "Danish", last_name: "Shah" }
 ].freeze
 
 WORKSPACES = [{ identifier: "introspec", name: "Introspec", public_api_key: SecureRandom.uuid }].freeze
@@ -34,19 +35,18 @@ COLUMNS = {
   ]
 }.freeze
 
-
 WORKSPACES.each do |ws|
   pre_existing = Workspace.exists?(identifier: ws[:identifier])
   say "\nSeed workspace: #{ws[:identifier]}"
   Workspace.create!(ws) unless pre_existing
   say "  * Workspace #{ws[:identifier]} #{pre_existing ? 'found' : 'created'}."
-  
+
   workspace = Workspace.find_by(identifier: ws[:identifier])
 
   USERS.each do |user|
     pre_existing = User.exists?(username: user[:username])
     say "\nSeed user: #{user[:username]} in workspace #{ws[:identifier]}"
-    User.create!(workspace: workspace, **user.slice(:username, :password, :email, :first_name, :last_name).merge(password_confirmation: user[:password])) unless pre_existing
+    User.create!(user.slice(:username, :password, :email, :first_name, :last_name).merge(password_confirmation: user[:password])) unless pre_existing
     say "  * User #{user[:username]} #{pre_existing ? 'found' : 'created'}."
   end
 

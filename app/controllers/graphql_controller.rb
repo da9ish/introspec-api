@@ -25,7 +25,10 @@ class GraphqlController < ApplicationController
     {
       operation_name: item[:operationName],
       variables:      prepare_variables(item[:variables]),
-      context:        gql_devise_context(User)
+      context:        {
+        headers: request.headers,
+        **gql_devise_context(User)
+      }
     }
   end
 

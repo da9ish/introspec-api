@@ -3,13 +3,15 @@
 class IntrospecApiSchema < GraphQL::Schema
   use GraphqlDevise::SchemaPlugin.new(
     query:            ::ApplicationQuery,
-    mutation:         Types::MutationType,
+    mutation:         ::ApplicationMutation,
     resource_loaders: [
-      GraphqlDevise::ResourceLoader.new(User)
+      GraphqlDevise::ResourceLoader.new(User, {
+                                          authenticatable_type: ::Types::User
+                                        })
     ]
   )
 
-  mutation(Types::MutationType)
+  mutation(::ApplicationMutation)
   query(::ApplicationQuery)
 
   # For batch-loading (see https://graphql-ruby.org/dataloader/overview.html)

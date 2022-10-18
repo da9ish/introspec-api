@@ -2,6 +2,7 @@
 
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
+require_relative "../app/lib/introspec/graphql_test_helper"
 require "rails/test_help"
 
 module ActiveSupport
@@ -13,5 +14,12 @@ module ActiveSupport
     fixtures :all
 
     # Add more helper methods to be used by all tests here...
+    Minitest::Test.make_my_diffs_pretty!
+
+    def self.focus
+      return puts("   ****** Ignoring focus ****** ") if ENV["NOFOCUS"]
+
+      super
+    end
   end
 end
