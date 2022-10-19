@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2022_01_22_122312) do
     t.bigint "workspace_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["identifier"], name: "index_environments_on_identifier", unique: true
+    t.index ["identifier", "workspace_id"], name: "index_environments_on_identifier_and_workspace_id", unique: true
     t.index ["workspace_id"], name: "index_environments_on_workspace_id"
   end
 

@@ -10,6 +10,6 @@ class CreateEnvironments < ActiveRecord::Migration[6.1]
       t.timestamps
     end
 
-    add_index :environments, :identifier, unique: true
+    add_index :environments, %i[identifier workspace_id], unique: true
   end
 end

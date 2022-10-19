@@ -3,7 +3,7 @@
 class Introspec
   class BaseMutation < ::Mutations::BaseMutation
     def self.name
-      to_s.gsub("::", "").camelize(:lower)
+      to_s.split("::").last.gsub("::", "").camelize(:lower)
     end
 
     def resolve(**kwargs)

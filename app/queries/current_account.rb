@@ -6,7 +6,7 @@ class CurrentAccount < ::Introspec::BaseQuery
   def resolve
     if context[:current_resource]
       Rails.logger.info "Authenticated user on public field: #{context[:current_resource].email}"
-      context[:current_resource]
+      User.find(context[:current_resource].id)
     else
       Rails.logger.info "Field does not require authentication"
     end
