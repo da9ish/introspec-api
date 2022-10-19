@@ -3,6 +3,7 @@
 class ApplicationQuery < ::Introspec::QueryType
   query ::CurrentAccount, authenticate: false
   query ::Schema, authenticate: true
+  query ::UsersList, authenticate: true
 
   # test
   query ::TestField, authenticate: false
