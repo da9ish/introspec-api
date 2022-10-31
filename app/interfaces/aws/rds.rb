@@ -36,6 +36,7 @@ module AWS
                                    preferred_backup_window:      backup_window,
                                    preferred_maintenance_window: maintenance_window
                                  })
+      # on successfull modification, update the credentials for this db in our database
     end
 
     def start_db
