@@ -6,8 +6,8 @@ def say(msg)
 end
 
 USERS = [
-  { uid: SecureRandom.uuid, username: "introspec_bot", email: "bot@introspec.app", password: "Q8FUj76mYppUGg69", first_name: "Introspec", last_name: "Bot" },
-  { uid: SecureRandom.uuid, username: "da9ish", email: "danish@introspec.app", password: "1234512345", first_name: "Danish", last_name: "Shah" }
+  { uid: SecureRandom.uuid, username: "introspec_bot", email: "bot@introspec.app", role: "BOT", password: "Q8FUj76mYppUGg69", first_name: "Introspec", last_name: "Bot" },
+  { uid: SecureRandom.uuid, username: "da9ish", email: "danish@introspec.app", role: "WORKSPACE_OWNER", password: "1234512345", first_name: "Danish", last_name: "Shah" }
 ].freeze
 
 WORKSPACES = [{ identifier: "introspec", name: "Introspec", public_api_key: SecureRandom.uuid }].freeze
@@ -20,11 +20,11 @@ DATABASES = [
   { identifier: "introspec-api", name: "Introspec API" }
 ].freeze
 TABLES = [
-  { identifier: "user", name: "User", indexes: %w[id name email], contraints: [] },
+  { identifier: "account", name: "Account", indexes: %w[id name email], contraints: [] },
   { identifier: "product", name: "Product", indexes: %w[id sku], contraints: [] }
 ].freeze
 COLUMNS = {
-  user:    [
+  account: [
     { identifier: "id", name: "Id", data_type: "UUID", contraints: [] },
     { identifier: "name", name: "Name", data_type: "VARCHAR", contraints: [] },
     { identifier: "email", name: "Email", data_type: "VARCHAR", contraints: [] }
@@ -46,7 +46,7 @@ WORKSPACES.each do |ws|
   USERS.each do |user|
     pre_existing = User.exists?(username: user[:username])
     say "\nSeed user: #{user[:username]} in workspace #{ws[:identifier]}"
-    User.create!(user.slice(:username, :password, :email, :first_name, :last_name).merge(password_confirmation: user[:password])) unless pre_existing
+    User.create!(workspace: workspace, **user.slice(:username, :role, :password, :email, :first_name, :last_name).merge(password_confirmation: user[:password])) unless pre_existing
     say "  * User #{user[:username]} #{pre_existing ? 'found' : 'created'}."
   end
 
