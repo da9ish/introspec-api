@@ -4,6 +4,6 @@ class UsersList < ::Introspec::BaseQuery
   type [::Types::User], null: true
 
   def resolve
-    Users.all
+    User.all
   end
 end
