@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Introspec
+module Introspec
   class CommandFailure < StandardError
   end
 end

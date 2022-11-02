@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Introspec
+module Introspec
   module GraphqlTestHelper
     def query(field, input: nil, selector: nil)
       operation_name = field.to_s.camelize(:lower)

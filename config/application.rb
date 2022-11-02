@@ -16,12 +16,15 @@ require "action_view/railtie"
 require "action_cable/engine"
 require "rails/test_unit/railtie"
 require "sprockets/railtie"
+require "aws-sdk"
+require "graphql_devise"
 
 gem "rack-cors", require: "rack/cors"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-require "graphql_devise"
+
+Dotenv::Railtie.load if %w[development test].include? ENV["RAILS_ENV"]
 
 module IntrospecApi
   class Application < Rails::Application

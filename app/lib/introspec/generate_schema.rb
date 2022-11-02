@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Introspec
+module Introspec
   class GenerateSchema
     SQL_TO_GQL_DATA_TYPE_MAP = {
       UUID:      GraphQL::Types::ID,
