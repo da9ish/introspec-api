@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 2022_01_22_122312) do
   create_table "workspaces", force: :cascade do |t|
     t.string "identifier", null: false
     t.string "name", null: false
+    t.string "logo"
     t.string "public_api_key"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
