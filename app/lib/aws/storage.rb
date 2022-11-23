@@ -16,7 +16,18 @@ module Aws
 
     def create_bucket
       @client.create_bucket({
-                              bucket: @identifier
+                              bucket:                         @identifier,
+                              acl:                            "private",
+                              create_bucket_configuration:    {
+                                location_constraint: region_name
+                              },
+                              grant_full_control:             "GrantFullControl",
+                              grant_read:                     "GrantRead",
+                              grant_read_acp:                 "GrantReadACP",
+                              grant_write:                    "GrantWrite",
+                              grant_write_acp:                "GrantWriteACP",
+                              object_lock_enabled_for_bucket: false,
+                              object_ownership:               "BucketOwnerPreferred"
                             })
       # store response of create bucket into db
       # set identifier in parent class
