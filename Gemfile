@@ -14,6 +14,7 @@ gem "awesome_print", "~> 1.9", ">= 1.9.2"
 gem "devise", "~> 4.8", ">= 4.8.1"
 gem "devise_token_auth", "~> 1.1.5"
 gem "graphql_devise", "~> 1.1"
+gem "graphiql-rails", "~> 1.8"
 gem "net-smtp", "~> 0.3.3"
 gem "omniauth", "~> 2.0", ">= 2.0.4"
 gem "puma", "~> 5.6", ">= 5.6.5"
@@ -46,7 +47,6 @@ end
 group :development do
   gem "listen", "~> 3.3"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem "graphiql-rails", "~> 1.8"
   gem "guard", "~> 2.16"
   gem "guard-minitest", "~> 2.4"
   gem "minitest-focus", "~> 1.2"
