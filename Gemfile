@@ -10,15 +10,13 @@ gem "rails", "~> 6.1.4", ">= 6.1.4.1"
 # Use sqlite3 as the database for Active Record
 # gem "sqlite3", "~> 1.4"
 # Use Puma as the app serverx
+gem "awesome_print", "~> 1.9", ">= 1.9.2"
 gem "devise", "~> 4.8", ">= 4.8.1"
 gem "devise_token_auth", "~> 1.1.5"
 gem "graphql_devise", "~> 1.1"
+gem "net-smtp", "~> 0.3.3"
 gem "omniauth", "~> 2.0", ">= 2.0.4"
-
 gem "puma", "~> 5.6", ">= 5.6.5"
-gem 'net-smtp', '~> 0.3.3'
-
-gem "awesome_print", "~> 1.9", ">= 1.9.2"
 gem "jbuilder", "~> 2.7"
 gem "rack-cors", "~> 1.1", ">= 1.1.1"
 gem "redis", "~> 4.0"
@@ -47,7 +45,7 @@ end
 group :development do
   gem "listen", "~> 3.3"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem "spring"
+  gem 'spring', '~> 4.1'
 
   gem "graphiql-rails", "~> 1.8"
   gem "guard", "~> 2.16"
