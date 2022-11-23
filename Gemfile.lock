@@ -1443,7 +1443,6 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sqlite3 (1.4.2)
     thor (1.2.1)
     tilt (2.0.10)
     timeout (0.3.0)
@@ -1492,7 +1491,6 @@ DEPENDENCIES
   sequel (~> 5.50)
   solargraph (~> 0.44.0)
   spring
-  sqlite3 (~> 1.4)
   tzinfo-data
 
 RUBY VERSION
