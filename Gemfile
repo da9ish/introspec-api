@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.0.2"
+ruby "3.1.2"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem "rails", "~> 6.1.4", ">= 6.1.4.1"
@@ -16,6 +16,7 @@ gem "graphql_devise", "~> 1.1"
 gem "omniauth", "~> 2.0", ">= 2.0.4"
 
 gem "puma", "~> 5.6", ">= 5.6.5"
+gem 'net-smtp', '~> 0.3.3'
 
 gem "awesome_print", "~> 1.9", ">= 1.9.2"
 gem "jbuilder", "~> 2.7"
