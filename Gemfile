@@ -22,6 +22,7 @@ gem "rack-cors", "~> 1.1", ">= 1.1.1"
 gem "redis", "~> 4.0"
 gem "rubocop", "~> 1.23", require: false
 gem "rubocop-rails", "~> 2.12", ">= 2.12.4", require: false
+gem 'spring', '~> 4.1'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.4", require: false
@@ -45,8 +46,6 @@ end
 group :development do
   gem "listen", "~> 3.3"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring', '~> 4.1'
-
   gem "graphiql-rails", "~> 1.8"
   gem "guard", "~> 2.16"
   gem "guard-minitest", "~> 2.4"
