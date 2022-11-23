@@ -6,4 +6,5 @@ introspec_bot:
   jti: <%= SecureRandom.uuid %>
   first_name: 'Introspec'
   last_name: 'Bot'
+  role: 'BOT'
   workspace: introspec

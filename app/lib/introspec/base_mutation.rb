@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Introspec
+module Introspec
   class BaseMutation < ::Mutations::BaseMutation
     def self.name
       to_s.split("::").last.gsub("::", "").camelize(:lower)

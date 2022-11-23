@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Introspec
+module Introspec
   class MutationType < ::Types::BaseObject
     def self.publish(klass, **kwargs, &block)
       field(klass.graphql_name, mutation: klass, **kwargs, &block)

@@ -1,24 +1,27 @@
 # frozen_string_literal: true
 
-module AWS
-  class RDS
+module Aws
+  class Database
     # credentials -> https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Credentials.html
     # region -> string
-    def initialize(region_name, credentials, identifier)
-      @identifier = identifier
+
+    def initialize(region_name, identifier)
+      @identifier = identifier || ""
       @client = Aws::RDS::Client.new(
-        region:      region_name,
-        credentials: credentials
+        region:            region_name,
+        access_key_id:     ENV["AWS_ACCESS_KEY"],
+        secret_access_key: ENV["AWS_SECRET_KEY"]
       )
     end
 
     # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/RDS/Client.html#create_db_instance-instance_method
-    def create_db(identifier, username, password)
+    def create_db(username, password)
       @client.create_db_instance({
                                    allocated_storage:      5,
-                                   db_instance_class:      "db.t2.micro",
-                                   db_instance_identifier: identifier,
-                                   engine:                 "PostgreSQL",
+                                   db_instance_class:      "db.t3.micro",
+                                   db_instance_identifier: @identifier,
+                                   engine:                 "postgres",
+                                   db_name:                "PostgreSQL",
                                    master_username:        username,
                                    master_user_password:   password
                                  })
@@ -59,10 +62,10 @@ module AWS
     end
 
     def delete_db
-      client.delete_db_instance({
-                                  db_instance_identifier: @identifier,
-                                  skip_final_snapshot:    true
-                                })
+      @client.delete_db_instance({
+                                   db_instance_identifier: @identifier,
+                                   skip_final_snapshot:    true
+                                 })
     end
   end
 end

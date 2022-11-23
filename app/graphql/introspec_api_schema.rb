@@ -6,7 +6,8 @@ class IntrospecApiSchema < GraphQL::Schema
     mutation:         ::ApplicationMutation,
     resource_loaders: [
       GraphqlDevise::ResourceLoader.new(User, {
-                                          authenticatable_type: ::Types::User
+                                          authenticatable_type: ::Types::User,
+                                          operations:           { register: UserRegister }
                                         })
     ]
   )

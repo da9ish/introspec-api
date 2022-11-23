@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 2022_01_22_122312) do
     t.string "string"
     t.string "username", default: "", null: false
     t.string "email", default: "", null: false
+    t.string "role", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "first_name", default: "", null: false
     t.string "last_name", default: "", null: false
@@ -87,6 +88,7 @@ ActiveRecord::Schema.define(version: 2022_01_22_122312) do
   create_table "workspaces", force: :cascade do |t|
     t.string "identifier", null: false
     t.string "name", null: false
+    t.string "logo"
     t.string "public_api_key"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

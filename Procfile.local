@@ -1,2 +1,2 @@
-web: bundle exec rails s -b $APP_DOMIAN
+web: bundle exec rails s -b $HOST
 # worker: bundle exec sidekiq -c 2 -q default -q mailers
