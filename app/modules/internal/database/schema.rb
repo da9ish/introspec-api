@@ -2,7 +2,7 @@
 
 module Internal
   module Database
-    class Schema < ::Configuration
+    class Schema < Internal::Database::Configuration
       # create schema for table, columns, field resolvers, indexes
       def initialize(connection)
         @connection = connection

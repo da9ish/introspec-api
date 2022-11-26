@@ -2,7 +2,7 @@
 
 module Internal
   module Database
-    class DB < ::Configuration
+    class DB < Internal::Database::Configuration
       # Carefull here, we are executing raw query against db, need to santize all inputs
 
       # GraphQL API structure will be:

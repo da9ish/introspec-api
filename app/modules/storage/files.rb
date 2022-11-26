@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Storage
-  class Files < ::Configuration
+  class Files < Storage::Configuration
     # create and manage config for storage
     # this will be the graphQL queries and mutations
     # decorate for the gql layer
