@@ -1,0 +1,71 @@
+env:
+  RUBY_VERSION: 2.7.3
+  POSTGRES_USER: introspec_api
+  POSTGRES_PASSWORD: introspec_api
+  POSTGRES_DB: introspec_api_test
+
+name: Rails tests
+on: [push]
+
+jobs:
+  lint_test_and_deploy:
+    name: Lint, Test and Deploy
+    runs-on: ubuntu-18.04
+    services:
+      postgres:
+        image: postgres:latest
+        ports:
+        - 5432:5432
+        env:
+          POSTGRES_USER: ${{ env.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+      redis:
+        image: redis
+        ports: ['6379:6379']
+        options: --entrypoint redis-server
+    steps:
+      - uses: actions/checkout@v1
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+      - uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+      - name: Install postgres client
+        run: sudo apt-get install libpq-dev
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundle config path vendor/bundle
+          bundle install
+      - name: Create database
+        run: |
+          bin/run-rails-ci db:create db:migrate
+          bin/run-rails-ci db:seed
+      - name: Run lint
+        run: bundle exec rubocop
+      - name: Run tests
+        env:
+          REDIS_URL: redis://localhost:6379/0
+        run: CI=true NOFOCUS=true bin/rails test
+      - name: Upload coverage results
+        uses: actions/upload-artifact@master
+        if: always()
+        with:
+          name: coverage-report
+          path: coverage
+      - name: Deploy to Staging (if develop)
+        env:
+          HEROKU_API_TOKEN: ${{ secrets.HEROKU_STAGING_API_TOKEN }}
+          HEROKU_APP_NAME: "introspec-staging-api-v1"
+        if: github.ref == 'refs/heads/develop' && job.status == 'success'
+        run: git push https://heroku:$HEROKU_API_TOKEN@git.heroku.com/$HEROKU_APP_NAME.git origin/develop:master
+      - name: Deploy to Production (if master)
+        env:
+          HEROKU_API_TOKEN: ${{ secrets.HEROKU_API_TOKEN }}
+          HEROKU_APP_NAME: "introspec-api-v1"
+        if: github.ref == 'refs/heads/master' && job.status == 'success'
+        run: git push https://heroku:$HEROKU_API_TOKEN@git.heroku.com/$HEROKU_APP_NAME.git origin/master:master

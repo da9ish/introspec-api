@@ -1,2 +1,2 @@
-web: bundle exec rails s
-# worker: bundle exec sidekiq -c 2 -q default -q mailers
+release: bin/rails db:migrate
+web: bundle exec puma -C config/puma.rb

@@ -23,6 +23,15 @@ port ENV.fetch("PORT") { 3000 }
 #
 environment ENV.fetch("RAILS_ENV") { "development" }
 
+# if workers_count > 1
+#   workers workers_count
+#   preload_app!
+# end
+
+on_worker_boot do
+  ActiveRecord::Base.establish_connection
+end
+
 if ENV.fetch("RACK_ENV", "development") == "development"
   localhost_key = File.join("config", "local-certs", "localhost-key.pem").to_s
   localhost_crt = File.join("config", "local-certs", "localhost.pem").to_s
@@ -53,4 +62,5 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 # preload_app!
 
 # Allow puma to be restarted by `rails restart` command.
+# frozen_string_literal: true
 plugin :tmp_restart
