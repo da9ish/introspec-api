@@ -1,23 +1,24 @@
 # frozen_string_literal: true
 
-module Database
-  class RawSQL
-    def initialize(connection)
-      @connection = connection
-    end
+module Internal
+  module Database
+    class RawSQL
+      def initialize(connection)
+        @connection = connection
+      end
 
-    def list_tables
-      `
+      def list_tables
+        `
       SELECT table_name
         FROM information_schema.tables
       WHERE table_type = 'BASE TABLE'
         AND table_schema NOT IN
             ('pg_catalog', 'information_schema');
       `
-    end
+      end
 
-    def list_columns_for_table(table_name)
-      `
+      def list_columns_for_table(table_name)
+        `
       SELECT
         a.table_name,
         a.ordinal_position,
@@ -37,10 +38,10 @@ module Database
       WHERE table_name = '#{table_name}'
       ORDER BY ordinal_position;
       `
-    end
+      end
 
-    def list_indices_for_table(table_name)
-      `
+      def list_indices_for_table(table_name)
+        `
       SELECT
           t.relname AS table_name,
           i.relname AS index_name,
@@ -61,6 +62,7 @@ module Database
           t.relname,
           i.relname;
       `
+      end
     end
   end
 end
