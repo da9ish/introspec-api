@@ -2,7 +2,7 @@
 
 module Internal
   module Database
-    class RawSQL
+    class RawSql
       def initialize(connection)
         @connection = connection
       end

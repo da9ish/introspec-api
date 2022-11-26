@@ -6,7 +6,7 @@ module Internal
       # create schema for table, columns, field resolvers, indexes
       def initialize(connection)
         @connection = connection
-        @db = ::Database::DB(**connection)
+        @db = ::Internal::Database::DB(**connection)
       end
     end
   end

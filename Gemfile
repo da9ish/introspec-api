@@ -16,14 +16,15 @@ gem "devise_token_auth", "~> 1.1.5"
 gem "graphiql-rails", "~> 1.8"
 gem "graphql_devise", "~> 1.1"
 gem "jbuilder", "~> 2.7"
-gem "net-smtp", "~> 0.3.3"
+gem 'net-smtp', require: false
+gem 'net-pop', require: false
+gem 'net-imap', require: false
 gem "omniauth", "~> 2.0", ">= 2.0.4"
 gem "puma", "~> 5.6", ">= 5.6.5"
 gem "rack-cors", "~> 1.1", ">= 1.1.1"
 gem "redis", "~> 4.0"
 gem "rubocop", "~> 1.23", require: false
 gem "rubocop-rails", "~> 2.12", ">= 2.12.4", require: false
-gem "spring", "~> 4.1"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.4", require: false
@@ -50,6 +51,7 @@ group :development do
   gem "guard", "~> 2.16"
   gem "guard-minitest", "~> 2.4"
   gem "minitest-focus", "~> 1.2"
+  gem "spring", "~> 4.1"
 
   gem "solargraph", "~> 0.44.0", require: false
 end
