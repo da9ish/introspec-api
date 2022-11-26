@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
 module Introspec
-  class CommandFailure < StandardError
+  class MutationFailure < StandardError
   end
 end
