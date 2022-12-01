@@ -10,7 +10,8 @@ class CreateWorkspaceTest < ::ActiveSupport::TestCase
       mutation = mutation(:create_workspace, input: "createWorkspaceInput!", selector: "name")
       result = execute(mutation, { input: {
                          name:       "test",
-                         identifier: "test"
+                         identifier: "test",
+                         logo:       "null"
                        } })
 
       assert result["errors"].nil?, "Test field query failed. ERR: #{result['errors']}"
