@@ -86,6 +86,11 @@ Rails/UnknownEnv:
     - test
     - staging
 
+Style/ClassVars:
+  Exclude:
+    - "app/lib/introspec/generate_schema.rb"
+    - "app/modules/internal/database/raw_sql.rb"
+
 # Minimally override style
 Style/StringLiterals:
   EnforcedStyle: double_quotes
@@ -170,7 +175,7 @@ Style/HashLikeCase:
 
 Style/RedundantFileExtensionInRequire:
   Enabled: true
-  
+
 Rails/ActiveRecordCallbacksOrder:
   Enabled: true
 

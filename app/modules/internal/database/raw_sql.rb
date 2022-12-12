@@ -40,6 +40,7 @@ module Internal
       `
       end
 
+      # rubocop:disable Metrics/MethodLength
       def list_indices_for_table(table_name)
         `
       SELECT
@@ -63,6 +64,7 @@ module Internal
           i.relname;
       `
       end
+      # rubocop:enable Metrics/MethodLength
     end
   end
 end
