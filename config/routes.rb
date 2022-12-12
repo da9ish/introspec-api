@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   }
 
   post "/graphql", to: "graphql#execute"
+  post "/early-access", to: "early_access#create"
 
   mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql" if Rails.env.development?
 end

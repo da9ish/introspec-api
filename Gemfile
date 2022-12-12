@@ -16,9 +16,9 @@ gem "devise_token_auth", "~> 1.1.5"
 gem "graphiql-rails", "~> 1.8"
 gem "graphql_devise", "~> 1.1"
 gem "jbuilder", "~> 2.7"
-gem 'net-smtp', require: false
-gem 'net-pop', require: false
-gem 'net-imap', require: false
+gem "net-imap", require: false
+gem "net-pop", require: false
+gem "net-smtp", require: false
 gem "omniauth", "~> 2.0", ">= 2.0.4"
 gem "puma", "~> 5.6", ">= 5.6.5"
 gem "rack-cors", "~> 1.1", ">= 1.1.1"
