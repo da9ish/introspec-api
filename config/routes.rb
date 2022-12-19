@@ -4,13 +4,12 @@ require "subdomain"
 
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  post "/graphql", to: "schema#execute", constraints: lambda { |request|
-    hosts = Workspace.all.map(&:identifier)
-    request.subdomain.present? && request.subdomain != "www" && hosts.include?(request.subdomain)
-  }
+  constraints subdomain: 'api' do
+    post "/graphql", to: "graphql#execute"
+    post "/early-access", to: "early_access#create"
 
-  post "/graphql", to: "graphql#execute"
-  post "/early-access", to: "early_access#create"
+    post "/:workspace", to: "schema#execute"
+  end
 
   mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql" if Rails.env.development?
 end

@@ -11,6 +11,10 @@ class SchemaController < ApplicationController
 
   def execute
     query = params[:query]
+    workspace = params[:workspace]
+    hosts = Workspace.all.map(&:identifier)
+    render json: { errors: [{ message: "Workspace doesn't exist" }], data: {}, status: "422" }, status: :ok unless hosts.include?(workspace)
+
     result = WorkspaceApiSchema.execute(query, **execute_params(params))
     render json: result unless performed?
   rescue StandardError => e
