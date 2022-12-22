@@ -19,6 +19,7 @@ module Onboard
       workspace = Workspace.create!(name: @name, identifier: @identifier, logo: @logo)
       Environment.create!(workspace: workspace, name: "Live", identifier: "live") unless Environment.exists?(workspace: @identifier, identifier: "live")
       user.update!(workspace: workspace)
+      CreateWorkspaceJob.perform_now @identifier
 
       workspace
     end
@@ -26,7 +27,7 @@ module Onboard
     def update_user(workspace); end
 
     def user
-      @user ||= User.find(Current.user.id)
+      @user ||= User.find(context[:current_resource].id)
     end
   end
 end

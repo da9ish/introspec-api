@@ -1,0 +1,4 @@
+table_user:
+  identifier: 'user'
+  name: 'Users'
+  database: introspec_api

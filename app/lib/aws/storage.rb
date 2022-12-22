@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Aws
+module AWS
   class Storage
     # credentials -> https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Credentials.html
     # region -> string

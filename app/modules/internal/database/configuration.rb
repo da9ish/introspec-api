@@ -20,11 +20,11 @@ module Internal
         end
       end
 
-      def create_db_instance(db_name, region_name, username, password)
+      def create_db_instance(db_name, _region_name, username, password)
         create_db(db_name, username, password)
 
         # hash the password before saving
-        ::Database::Instance.new(identifier: db_name, region: region_name, username: username, password: password)
+        # ::Database::Instance.new(identifier: db_name, region: region_name, username: username, password: password)
       end
 
       def execute

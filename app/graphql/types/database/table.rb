@@ -3,10 +3,9 @@
 module Types
   module Database
     class Table < ::Types::BaseObject
+      field :id, ID, null: false
       field :name, String, null: false
       field :identifier, String, null: false
-      field :indexes, [String]
-      field :contraints, [String]
       field :columns, [::Types::Database::Column]
     end
   end

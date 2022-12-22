@@ -9,11 +9,13 @@ class WorkspaceQuery < ::Introspec::QueryType
   # query ::Storage::Delete, authenticate: true
 
   WorkspaceQuery.class_eval do
-    ::Table.all.map do |table|
-      generate_schema = ::Introspec::GenerateSchema.new(table: table)
+    database = ::Datum::Database.where(environment_id: Current.environment.id).first
+    database.tables.map do |table|
+      generate_schema = ::Introspec::GenerateSchema.new(table[:id])
+      generate_schema.generate_types
       query_classes = generate_schema.generate_queries
       query_classes.each do |query_class|
-        query(query_class, authenticate: true)
+        query(query_class, authenticate: false)
       end
     end
   end

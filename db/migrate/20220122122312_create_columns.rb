@@ -6,12 +6,15 @@ class CreateColumns < ActiveRecord::Migration[6.1]
       t.string :identifier, null: false
       t.string :name, null: false
       t.string :data_type, null: false
-      t.string :contraints, array: true, default: []
+      t.boolean :is_indexed, default: false
+      t.string :constraints, array: true, default: []
       t.references :table
 
       t.timestamps
     end
 
-    add_index :columns, :identifier, unique: true
+    add_index :columns, :name
+    add_index :columns, :is_indexed
+    add_index :columns, %i[identifier table_id], unique: true
   end
 end

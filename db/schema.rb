@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_08_113030) do
+ActiveRecord::Schema.define(version: 2022_12_19_113109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,12 +19,37 @@ ActiveRecord::Schema.define(version: 2022_12_08_113030) do
     t.string "identifier", null: false
     t.string "name", null: false
     t.string "data_type", null: false
-    t.string "contraints", default: [], array: true
+    t.boolean "is_indexed", default: false
+    t.string "constraints", default: [], array: true
     t.bigint "table_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["identifier"], name: "index_columns_on_identifier", unique: true
+    t.index ["identifier", "table_id"], name: "index_columns_on_identifier_and_table_id", unique: true
+    t.index ["is_indexed"], name: "index_columns_on_is_indexed"
+    t.index ["name"], name: "index_columns_on_name"
     t.index ["table_id"], name: "index_columns_on_table_id"
+  end
+
+  create_table "configurations", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "identifier", null: false
+    t.string "host"
+    t.string "port", null: false
+    t.string "allocated_storage", null: false
+    t.string "db_instance_class", null: false
+    t.string "db_instance_identifier", null: false
+    t.string "engine", null: false
+    t.string "db_name", null: false
+    t.string "username", null: false
+    t.string "encrypted_password", null: false
+    t.string "status", null: false
+    t.jsonb "raw_response"
+    t.bigint "database_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["database_id"], name: "index_configurations_on_database_id"
+    t.index ["identifier"], name: "index_configurations_on_identifier", unique: true
+    t.index ["name"], name: "index_configurations_on_name"
   end
 
   create_table "databases", force: :cascade do |t|
@@ -35,6 +60,7 @@ ActiveRecord::Schema.define(version: 2022_12_08_113030) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["environment_id"], name: "index_databases_on_environment_id"
     t.index ["identifier"], name: "index_databases_on_identifier", unique: true
+    t.index ["name"], name: "index_databases_on_name"
   end
 
   create_table "early_accesses", force: :cascade do |t|
@@ -51,19 +77,19 @@ ActiveRecord::Schema.define(version: 2022_12_08_113030) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["identifier", "workspace_id"], name: "index_environments_on_identifier_and_workspace_id", unique: true
+    t.index ["name"], name: "index_environments_on_name"
     t.index ["workspace_id"], name: "index_environments_on_workspace_id"
   end
 
   create_table "tables", force: :cascade do |t|
     t.string "identifier", null: false
     t.string "name", null: false
-    t.string "indexes", default: [], array: true
-    t.string "contraints", default: [], array: true
     t.bigint "database_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["database_id"], name: "index_tables_on_database_id"
-    t.index ["identifier"], name: "index_tables_on_identifier", unique: true
+    t.index ["identifier", "database_id"], name: "index_tables_on_identifier_and_database_id", unique: true
+    t.index ["name"], name: "index_tables_on_name"
   end
 
   create_table "users", force: :cascade do |t|

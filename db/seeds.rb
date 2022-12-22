@@ -20,18 +20,18 @@ DATABASES = [
   { identifier: "introspec-api", name: "Introspec API" }
 ].freeze
 TABLES = [
-  { identifier: "account", name: "Account", indexes: %w[id name email], contraints: [] },
-  { identifier: "product", name: "Product", indexes: %w[id sku], contraints: [] }
+  { identifier: "account", name: "Account" },
+  { identifier: "product", name: "Product" }
 ].freeze
 COLUMNS = {
   account: [
-    { identifier: "id", name: "Id", data_type: "UUID", contraints: [] },
-    { identifier: "name", name: "Name", data_type: "VARCHAR", contraints: [] },
-    { identifier: "email", name: "Email", data_type: "VARCHAR", contraints: [] }
+    { identifier: "id", name: "Id", data_type: "UUID", is_indexed: true, constraints: [] },
+    { identifier: "name", name: "Name", data_type: "VARCHAR", is_indexed: false, constraints: [] },
+    { identifier: "email", name: "Email", data_type: "VARCHAR", is_indexed: false, constraints: [] }
   ],
   product: [
-    { identifier: "id", name: "Id", data_type: "UUID", contraints: [] },
-    { identifier: "sku", name: "SKU", data_type: "VARCHAR", contraints: [] }
+    { identifier: "id", name: "Id", data_type: "UUID", is_indexed: true, constraints: [] },
+    { identifier: "sku", name: "SKU", data_type: "VARCHAR", is_indexed: true, constraints: [] }
   ]
 }.freeze
 
@@ -61,29 +61,29 @@ end
 ENVIRONMENTS.each do |env|
   environment = Environment.find_by(identifier: env[:identifier])
   DATABASES.each do |db|
-    pre_existing = Database.exists?(identifier: db[:identifier])
+    pre_existing = ::Datum::Database.exists?(identifier: db[:identifier])
     say "\nSeed database: #{db[:identifier]} in env #{env[:identifier]}"
-    Database.create!(environment: environment, **db) unless pre_existing
+    ::Datum::Database.create!(environment: environment, **db) unless pre_existing
     say "  * Database #{db[:identifier]} #{pre_existing ? 'found' : 'created'} in env #{env[:identifier]}."
   end
 end
 
 DATABASES.each do |db|
-  database = Database.find_by(identifier: db[:identifier])
+  database = ::Datum::Database.find_by(identifier: db[:identifier])
   TABLES.each do |table|
-    pre_existing = Table.exists?(identifier: table[:identifier])
+    pre_existing = ::Datum::Table.exists?(identifier: table[:identifier])
     say "\nSeed table: #{table[:identifier]} in db #{db[:identifier]}"
-    Table.create!(database: database, **table) unless pre_existing
+    ::Datum::Table.create!(database: database, **table) unless pre_existing
     say "  * Table #{table[:identifier]} #{pre_existing ? 'found' : 'created'} in database #{db[:identifier]}."
   end
 end
 
 COLUMNS.each_key do |tb|
-  table = Table.find_by(identifier: tb.to_s)
+  table = ::Datum::Table.find_by(identifier: tb.to_s)
   COLUMNS[tb].each do |col|
-    pre_existing = Column.exists?(identifier: col[:identifier])
+    pre_existing = ::Datum::Column.exists?(identifier: col[:identifier])
     say "\nSeed column: #{col[:identifier]}"
-    Column.create!(table: table, **col) unless pre_existing
+    ::Datum::Column.create!(table: table, **col) unless pre_existing
     say "  * Column #{col[:identifier]} #{pre_existing ? 'found' : 'created'} in table #{tb}.."
   end
 end

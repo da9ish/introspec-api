@@ -10,6 +10,7 @@ class CreateDatabases < ActiveRecord::Migration[6.1]
       t.timestamps
     end
 
+    add_index :databases, :name
     add_index :databases, :identifier, unique: true
   end
 end

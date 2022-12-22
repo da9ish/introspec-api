@@ -2,5 +2,6 @@ column_name:
   identifier: 'name'
   name: 'Name'
   data_type: 'VARCHAR'
-  contraints: [UNIQUE]
+  constraints: [UNIQUE]
+  is_indexed: true
   table: table_user

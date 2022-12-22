@@ -2,6 +2,7 @@
 
 class SchemaController < ApplicationController
   include GraphqlDevise::SetUserByToken
+  include SetCurrentRequestDetails
   # If accessing from outside this domain, nullify the session
   # This allows for outside API access while preventing CSRF attacks,
   # but you'll have to authenticate your user separately
@@ -11,9 +12,9 @@ class SchemaController < ApplicationController
 
   def execute
     query = params[:query]
-    workspace = params[:workspace]
+    @workspace = Workspace.find_by_identifier(params[:workspace])
     hosts = Workspace.all.map(&:identifier)
-    render json: { errors: [{ message: "Workspace doesn't exist" }], data: {}, status: "422" }, status: :ok unless hosts.include?(workspace)
+    render json: { errors: [{ message: "Workspace doesn't exist" }], data: {}, status: "422" }, status: :ok unless hosts.include?(@workspace.identifier)
 
     result = WorkspaceApiSchema.execute(query, **execute_params(params))
     render json: result unless performed?
@@ -30,7 +31,8 @@ class SchemaController < ApplicationController
       operation_name: item[:operationName],
       variables:      prepare_variables(item[:variables]),
       context:        {
-        headers: request.headers,
+        headers:   request.headers,
+        workspace: @workspace,
         **gql_devise_context(User)
       }
     }

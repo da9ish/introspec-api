@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
-  include SetCurrentRequestDetails
-
   helper_method :require_subdomain
 
   private

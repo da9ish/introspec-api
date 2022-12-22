@@ -11,6 +11,7 @@ gem "rails", "~> 6.1.4", ">= 6.1.4.1"
 # gem "sqlite3", "~> 1.4"
 # Use Puma as the app serverx
 gem "awesome_print", "~> 1.9", ">= 1.9.2"
+gem "bcrypt", "~> 3.1", ">= 3.1.18"
 gem "devise", "~> 4.8", ">= 4.8.1"
 gem "devise_token_auth", "~> 1.1.5"
 gem "graphiql-rails", "~> 1.8"

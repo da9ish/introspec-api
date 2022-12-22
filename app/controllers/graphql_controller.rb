@@ -2,6 +2,8 @@
 
 class GraphqlController < ApplicationController
   include GraphqlDevise::SetUserByToken
+  include SetCurrentRequestDetails
+
   # If accessing from outside this domain, nullify the session
   # This allows for outside API access while preventing CSRF attacks,
   # but you'll have to authenticate your user separately

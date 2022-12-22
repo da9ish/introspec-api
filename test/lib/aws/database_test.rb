@@ -8,7 +8,7 @@ module AWS
       Current.test do
         # rds = Aws::Database.new("ap-south-1", "spacex")
         # resp = rds.create_db("spacex_api", "spacex_api")
-        # ap resp.db_instance[:db_instance_status]
+        # ap resp.db_instance
         # rds.delete_db
       end
     end

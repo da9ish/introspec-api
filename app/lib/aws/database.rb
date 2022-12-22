@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Aws
+module AWS
   class Database
     # credentials -> https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Credentials.html
     # region -> string
@@ -15,15 +15,16 @@ module Aws
     end
 
     # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/RDS/Client.html#create_db_instance-instance_method
-    def create_db(username, password)
+    def create_db(db_name, username, password)
       @client.create_db_instance({
-                                   allocated_storage:      5,
-                                   db_instance_class:      "db.t3.micro",
-                                   db_instance_identifier: @identifier,
-                                   engine:                 "postgres",
-                                   db_name:                "PostgreSQL",
-                                   master_username:        username,
-                                   master_user_password:   password
+                                   allocated_storage:       5,
+                                   db_instance_class:       "db.t4g.micro",
+                                   db_instance_identifier:  @identifier,
+                                   engine:                  "postgres",
+                                   backup_retention_period: 0,
+                                   db_name:                 db_name,
+                                   master_username:         username,
+                                   master_user_password:    password
                                  })
       # on successfull creation, store the credentials for this db in our database
     end
@@ -32,7 +33,7 @@ module Aws
       @client.modify_db_instance({
                                    allocated_storage:            storage,
                                    apply_immediately:            immediate,
-                                   backup_retention_period:      1,
+                                   backup_retention_period:      0,
                                    db_instance_class:            instance_class,
                                    db_instance_identifier:       @identifier,
                                    master_user_password:         password,
@@ -66,6 +67,12 @@ module Aws
                                    db_instance_identifier: @identifier,
                                    skip_final_snapshot:    true
                                  })
+    end
+
+    def get_db
+      @client.describe_db_instances({
+                                      db_instance_identifier: @identifier
+                                    })
     end
   end
 end

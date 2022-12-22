@@ -2,3 +2,7 @@ introspec:
   identifier: 'introspec'
   name: 'Introspec'
   public_api_key: 'Hm8tzhPwSX5cWm6G'
+spacex:
+  identifier: 'spacex'
+  name: 'SpaceX'
+  public_api_key: 'Hm8tzhPwS621cWm6G'

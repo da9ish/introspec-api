@@ -16,10 +16,10 @@ class CreateTable < ::Introspec::BaseMutation
 
   def create_table
     # TODO: add workspace and env management
-    Table.create!(name: @name, identifier: @identifier, database_id: database.id)
+    ::Datum::Table.create!(name: @name, identifier: @identifier, database_id: database.id)
   end
 
   def database
-    @database ||= Database.find(@database_id)
+    @database ||= ::Datum::Database.find(@database_id)
   end
 end

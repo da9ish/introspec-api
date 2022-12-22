@@ -4,7 +4,7 @@ require "subdomain"
 
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  constraints subdomain: 'api' do
+  constraints subdomain: "api" do
     post "/graphql", to: "graphql#execute"
     post "/early-access", to: "early_access#create"
 

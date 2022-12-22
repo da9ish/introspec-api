@@ -15,14 +15,15 @@ module Internal
 
       # TODO: add support for import and export to and from csv/excel
 
-      def initialize
+      def initialize(host, database, username, password)
         # TODO: get configuration and establish connection
-        @database = ActiveRecord::Base.establish_connection(
+        ActiveRecord::Base.establish_connection(
           adapter:  "postgresql",
-          host:     "localhost",
-          database: "introspec_api_development",
-          username: "introspec_api",
-          password: "introspec_api"
+          host:     host,
+          port:     5432,
+          database: database,
+          username: username,
+          password: password
         )
       end
 
@@ -38,12 +39,12 @@ module Internal
         # TODO: implement pagination
 
         @query += ";"
-        @database.exec(query)
+        ActiveRecord::Base.connection.exec(@query)
       end
 
       def get(table, id)
         @query = "SELECT * FROM #{table} WHERE id = #{id}"
-        @database.exec(query)
+        ActiveRecord::Base.connection.execute(@query)
       end
 
       def create(table, values)
@@ -56,7 +57,7 @@ module Internal
 
       def destroy(table, id)
         @query = "DELETE FROM #{table} WHERE id = #{id}"
-        @database.exec(@query)
+        ActiveRecord::Base.connection.exec(@query)
       end
 
       private
