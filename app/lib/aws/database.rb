@@ -69,7 +69,7 @@ module AWS
                                  })
     end
 
-    def get_db
+    def db
       @client.describe_db_instances({
                                       db_instance_identifier: @identifier
                                     })

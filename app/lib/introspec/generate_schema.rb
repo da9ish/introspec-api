@@ -22,7 +22,7 @@ module Introspec
     def initialize(table_id)
       @@table = ::Datum::Table.find(table_id)
       @@columns = ::Datum::Column.where(table_id: table_id) || []
-      configuration = ::Datum::Configuration.where(database_id: @@table.database.id).first
+      # configuration = ::DatabaseConfiguration.where(database_id: @@table.database.id).first
       # @db = ::Internal::Database::DB.new(
       #   configuration.host,
       #   configuration.db_name,
@@ -33,11 +33,13 @@ module Introspec
 
     def generate_types
       base_type_name = "#{@@table[:name].titleize.remove(' ').classify}Type"
-      # Object.send(:remove_const, base_type_name) if Object.const_defined?(base_type_name)
+      # Object.send(:remove_const, base_type_name) unless Object.const_defined?(base_type_name)
       if Object.const_defined?(base_type_name)
+        require_dependency "introspec/generate_schema/#{@@table[:name].underscore}_type"
         @@type_class = Object.const_get(base_type_name)
         @@columns.map do |col|
           next if @@type_class.all_field_definitions.map(&:graphql_name).map(&:underscore).include?(col.identifier)
+
           @@type_class.send(:field, col.identifier, type: SQL_TO_GQL_DATA_TYPE_MAP[col.data_type.to_sym], null: true)
         end
         return true

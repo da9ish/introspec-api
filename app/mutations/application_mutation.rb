@@ -5,6 +5,10 @@ class ApplicationMutation < ::Introspec::MutationType
   publish ::CreateTable
   publish ::UpdateColumn
   publish ::UpdateTable
+
+  publish ::Storage::CreateFolder
+  publish ::Storage::UpdateFolder
+
   publish ::Onboard::CreateWorkspace
   publish ::Onboard::CreateEnvironments
 end

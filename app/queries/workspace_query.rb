@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "introspec/generate_schema"
+
 class WorkspaceQuery < ::Introspec::QueryType
   # query ::Authentication::UsersList, authenticate: true
 

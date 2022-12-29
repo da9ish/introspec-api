@@ -2,8 +2,11 @@
 
 class ApplicationQuery < ::Introspec::QueryType
   query ::CurrentAccount, authenticate: false
-  query ::Schema, authenticate: true
   query ::UsersList, authenticate: true
+
+  query ::Database::Schema, authenticate: true
+
+  query ::Storage::Directory, authenticate: true
 
   # test
   query ::TestField, authenticate: false

@@ -19,6 +19,34 @@ ENVIRONMENTS = [
 DATABASES = [
   { identifier: "introspec-api", name: "Introspec API" }
 ].freeze
+DATABASE_CONFIGURATIONS = [
+  {
+    identifier:             "introspec-api-database",
+    name:                   "Introspec API Database",
+    username:               "postgres",
+    encrypted_password:     "postgres",
+    host:                   "localhost",
+    port:                   "5432",
+    allocated_storage:      5,
+    db_instance_class:      "Postgres",
+    db_instance_identifier: "postgres",
+    engine:                 "postgres",
+    db_name:                "introspec",
+    status:                 "available",
+    raw_response:           {
+      username:               "postgres",
+      encrypted_password:     "postgres",
+      host:                   "localhost",
+      port:                   "5432",
+      allocated_storage:      5,
+      db_instance_class:      "Postgres",
+      db_instance_identifier: "postgres",
+      engine:                 "postgres",
+      db_name:                "introspec",
+      status:                 "available"
+    }
+  }
+].freeze
 TABLES = [
   { identifier: "account", name: "Account" },
   { identifier: "product", name: "Product" }
@@ -32,6 +60,32 @@ COLUMNS = {
   product: [
     { identifier: "id", name: "Id", data_type: "UUID", is_indexed: true, constraints: [] },
     { identifier: "sku", name: "SKU", data_type: "VARCHAR", is_indexed: true, constraints: [] }
+  ]
+}.freeze
+
+BUCKETS = [
+  { identifier: "introspec", name: "Introspec" }
+].freeze
+STORAGE_CONFIGURATIONS = [
+  {
+    identifier:   "introspec-api-database",
+    name:         "Introspec API Database",
+    location:     nil,
+    raw_response: {}
+  }
+].freeze
+FOLDERS = [
+  { identifier: "assets", name: "Assets", relative_path: "/assets" }
+].freeze
+SUB_FOLDERS = [
+  { identifier: "images", name: "Images", relative_path: "/assets/images" }
+].freeze
+FILES = {
+  images: [
+    { identifier: "image-1", name: "Image 1", file_type: "image", size: "241kb", relative_path: "images/" }
+  ],
+  assets: [
+    { identifier: "image-2", name: "Image 2", file_type: "image", size: "241kb", relative_path: "assets/" }
   ]
 }.freeze
 
@@ -66,10 +120,25 @@ ENVIRONMENTS.each do |env|
     ::Datum::Database.create!(environment: environment, **db) unless pre_existing
     say "  * Database #{db[:identifier]} #{pre_existing ? 'found' : 'created'} in env #{env[:identifier]}."
   end
+
+  BUCKETS.each do |bucket|
+    pre_existing = ::CloudStore::Bucket.exists?(identifier: bucket[:identifier])
+    say "\nSeed bucket: #{bucket[:identifier]} in env #{env[:identifier]}"
+    ::CloudStore::Bucket.create!(environment: environment, **bucket) unless pre_existing
+    say "  * Bucket #{bucket[:identifier]} #{pre_existing ? 'found' : 'created'} in env #{env[:identifier]}."
+  end
 end
 
 DATABASES.each do |db|
   database = ::Datum::Database.find_by(identifier: db[:identifier])
+
+  DATABASE_CONFIGURATIONS.each do |config|
+    pre_existing = ::DatabaseConfiguration.exists?(identifier: config[:identifier])
+    say "\nSeed configuration: #{config[:identifier]} in db #{db[:identifier]}"
+    ::DatabaseConfiguration.create!(database: database, **config) unless pre_existing
+    say "  * Configuration #{config[:identifier]} #{pre_existing ? 'found' : 'created'} in database #{db[:identifier]}."
+  end
+
   TABLES.each do |table|
     pre_existing = ::Datum::Table.exists?(identifier: table[:identifier])
     say "\nSeed table: #{table[:identifier]} in db #{db[:identifier]}"
@@ -84,6 +153,44 @@ COLUMNS.each_key do |tb|
     pre_existing = ::Datum::Column.exists?(identifier: col[:identifier])
     say "\nSeed column: #{col[:identifier]}"
     ::Datum::Column.create!(table: table, **col) unless pre_existing
-    say "  * Column #{col[:identifier]} #{pre_existing ? 'found' : 'created'} in table #{tb}.."
+    say "  * Column #{col[:identifier]} #{pre_existing ? 'found' : 'created'} in table #{tb}."
+  end
+end
+
+BUCKETS.each do |bk|
+  bucket = ::CloudStore::Bucket.find_by(identifier: bk[:identifier])
+
+  STORAGE_CONFIGURATIONS.each do |config|
+    pre_existing = ::StorageConfiguration.exists?(identifier: config[:identifier])
+    say "\nSeed configuration: #{config[:identifier]} in bucket #{bk[:identifier]}"
+    ::StorageConfiguration.create!(bucket: bucket, **config) unless pre_existing
+    say "  * Configuration #{config[:identifier]} #{pre_existing ? 'found' : 'created'} in bucket #{bk[:identifier]}."
+  end
+
+  FOLDERS.each do |folder|
+    pre_existing = ::CloudStore::Folder.exists?(identifier: folder[:identifier])
+    say "\nSeed folder: #{folder[:identifier]} in bucket #{bucket[:identifier]}"
+    ::CloudStore::Folder.create!(bucket: bucket, **folder) unless pre_existing
+    say "  * Folder #{folder[:identifier]} #{pre_existing ? 'found' : 'created'} in bucket #{bk[:identifier]}."
+
+    folder = ::CloudStore::Folder.find_by(identifier: folder[:identifier])
+
+    SUB_FOLDERS.each do |sub_fldr|
+      pre_existing = ::CloudStore::Folder.exists?(identifier: sub_fldr[:identifier])
+      say "\nSeed folder: #{sub_fldr[:identifier]} in folder #{folder[:identifier]}"
+      ::CloudStore::Folder.create!(bucket: bucket, folder_id: folder[:id], **sub_fldr) unless pre_existing
+
+      say "  * Folder #{sub_fldr[:identifier]} #{pre_existing ? 'found' : 'created'} in folder #{sub_fldr[:identifier]}."
+    end
+  end
+end
+
+FILES.each_key do |fldr|
+  folder = ::CloudStore::Folder.find_by(identifier: fldr.to_s)
+  FILES[fldr].each do |file|
+    pre_existing = ::CloudStore::File.exists?(identifier: file[:identifier])
+    say "\nSeed file: #{file[:identifier]}"
+    ::CloudStore::File.create!(folder: folder, **file) unless pre_existing
+    say "  * File #{file[:identifier]} #{pre_existing ? 'found' : 'created'} in folder #{fldr}."
   end
 end

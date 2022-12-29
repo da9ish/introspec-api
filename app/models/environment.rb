@@ -6,5 +6,5 @@ class Environment < ApplicationRecord
 
   belongs_to :workspace, class_name: "::Workspace", primary_key: "id", inverse_of: :environments
   namespaced_association(:has_many, :databases, { class_name: "::Datum::Database", dependent: :destroy })
-  # has_many :databases, dependent: :destroy
+  namespaced_association(:has_many, :buckets, { class_name: "::CloudStore::Bucket", dependent: :destroy })
 end

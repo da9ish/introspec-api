@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_19_113109) do
+ActiveRecord::Schema.define(version: 2022_12_23_144000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "buckets", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "identifier", null: false
+    t.bigint "environment_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["environment_id"], name: "index_buckets_on_environment_id"
+    t.index ["identifier"], name: "index_buckets_on_identifier", unique: true
+    t.index ["name"], name: "index_buckets_on_name"
+  end
 
   create_table "columns", force: :cascade do |t|
     t.string "identifier", null: false
@@ -30,7 +41,7 @@ ActiveRecord::Schema.define(version: 2022_12_19_113109) do
     t.index ["table_id"], name: "index_columns_on_table_id"
   end
 
-  create_table "configurations", force: :cascade do |t|
+  create_table "database_configurations", force: :cascade do |t|
     t.string "name", null: false
     t.string "identifier", null: false
     t.string "host"
@@ -47,9 +58,9 @@ ActiveRecord::Schema.define(version: 2022_12_19_113109) do
     t.bigint "database_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["database_id"], name: "index_configurations_on_database_id"
-    t.index ["identifier"], name: "index_configurations_on_identifier", unique: true
-    t.index ["name"], name: "index_configurations_on_name"
+    t.index ["database_id"], name: "index_database_configurations_on_database_id"
+    t.index ["identifier"], name: "index_database_configurations_on_identifier", unique: true
+    t.index ["name"], name: "index_database_configurations_on_name"
   end
 
   create_table "databases", force: :cascade do |t|
@@ -79,6 +90,50 @@ ActiveRecord::Schema.define(version: 2022_12_19_113109) do
     t.index ["identifier", "workspace_id"], name: "index_environments_on_identifier_and_workspace_id", unique: true
     t.index ["name"], name: "index_environments_on_name"
     t.index ["workspace_id"], name: "index_environments_on_workspace_id"
+  end
+
+  create_table "files", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "identifier", null: false
+    t.string "size", null: false
+    t.string "file_type", null: false
+    t.string "relative_path", null: false
+    t.bigint "folder_id"
+    t.bigint "bucket_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["bucket_id"], name: "index_files_on_bucket_id"
+    t.index ["folder_id"], name: "index_files_on_folder_id"
+    t.index ["identifier", "bucket_id"], name: "index_files_on_identifier_and_bucket_id", unique: true
+    t.index ["identifier", "folder_id"], name: "index_files_on_identifier_and_folder_id", unique: true
+    t.index ["name"], name: "index_files_on_name"
+  end
+
+  create_table "folders", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "identifier", null: false
+    t.string "relative_path", null: false
+    t.bigint "bucket_id"
+    t.bigint "folder_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["bucket_id"], name: "index_folders_on_bucket_id"
+    t.index ["folder_id"], name: "index_folders_on_folder_id"
+    t.index ["identifier", "bucket_id"], name: "index_folders_on_identifier_and_bucket_id", unique: true
+    t.index ["name"], name: "index_folders_on_name"
+  end
+
+  create_table "storage_configurations", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "identifier", null: false
+    t.string "location"
+    t.jsonb "raw_response"
+    t.bigint "bucket_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["bucket_id"], name: "index_storage_configurations_on_bucket_id"
+    t.index ["identifier"], name: "index_storage_configurations_on_identifier", unique: true
+    t.index ["name"], name: "index_storage_configurations_on_name"
   end
 
   create_table "tables", force: :cascade do |t|

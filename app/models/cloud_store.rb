@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module Datum
+module CloudStore
   def self.table_name_prefix
-    "datum_"
+    "cloud_store_"
   end
 end

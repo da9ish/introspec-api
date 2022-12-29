@@ -12,7 +12,7 @@ class SchemaController < ApplicationController
 
   def execute
     query = params[:query]
-    @workspace = Workspace.find_by_identifier(params[:workspace])
+    @workspace = Workspace.find_by(identifier: params[:workspace])
     hosts = Workspace.all.map(&:identifier)
     render json: { errors: [{ message: "Workspace doesn't exist" }], data: {}, status: "422" }, status: :ok unless hosts.include?(@workspace.identifier)
 

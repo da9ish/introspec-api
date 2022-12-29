@@ -9,7 +9,10 @@ module Storage
     def initialize
       @storage = nil
       if bucket_exist?
-        @storage = ::AWS::S3.new(instance.region, credentials, instance.identifier)
+        @storage = ::AWS::S3.new(instance.region,
+                                 instance.identifier,
+                                 access_key_id:     ENV["AWS_ACCESS_KEY"],
+                                 secret_access_key: ENV["AWS_SECRET_KEY"])
       else
         "error: Please create a bucket"
       end

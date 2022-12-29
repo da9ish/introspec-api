@@ -1,6 +1,8 @@
-class CreateDatumConfigurations < ActiveRecord::Migration[6.1]
+# frozen_string_literal: true
+
+class CreateDatabaseConfigurations < ActiveRecord::Migration[6.1]
   def change
-    create_table :configurations do |t|
+    create_table :database_configurations do |t|
       t.string :name, null: false
       t.string :identifier, null: false
       t.string :host
@@ -20,7 +22,7 @@ class CreateDatumConfigurations < ActiveRecord::Migration[6.1]
       t.timestamps
     end
 
-    add_index :configurations, :name
-    add_index :configurations, :identifier, unique: true
+    add_index :database_configurations, :name
+    add_index :database_configurations, :identifier, unique: true
   end
 end
