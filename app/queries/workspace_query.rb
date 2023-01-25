@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 class WorkspaceQuery < Introspec::QueryType
-  def test
-    "Test"
-  end
   # query ::Authentication::UsersList, authenticate: true
 
   # query ::Storage::List, authenticate: true
@@ -12,7 +9,8 @@ class WorkspaceQuery < Introspec::QueryType
   # query ::Storage::Delete, authenticate: true
 
   WorkspaceQuery.class_eval do
-    database = ::Datum::Database.where(environment_id: context[:environment_id]).first
+    # TODO: move this logic inside generate_schema
+    database = ::Datum::Database.where(environment_id: ::Environment.first.id).first
     database.tables.map do |table|
       generate_schema = ::Introspec::GenerateSchema.new(table[:id])
       generate_schema.generate_types

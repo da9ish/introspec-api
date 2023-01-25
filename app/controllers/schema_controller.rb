@@ -39,7 +39,8 @@ class SchemaController < ApplicationController
       variables:      prepare_variables(item[:variables]),
       context:        {
         headers:   request.headers,
-        workspace: @workspace,
+        workspace_id: @workspace.id,
+        environment_id: @workspace.environments.first.id,
         **gql_devise_context(User)
       }
     }

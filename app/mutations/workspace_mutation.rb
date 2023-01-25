@@ -2,7 +2,7 @@
 
 class WorkspaceMutation < Introspec::MutationType
   WorkspaceMutation.class_eval do
-    database = ::Datum::Database.where(environment_id: context[:environment_id]).first
+    database = ::Datum::Database.where(environment_id: Environment.first.id).first
     database.tables.map do |table|
       generate_schema = ::Introspec::GenerateSchema.new(table[:id])
       # generate_schema.generate_types
