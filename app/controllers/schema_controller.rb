@@ -38,8 +38,8 @@ class SchemaController < ApplicationController
       operation_name: item[:operationName],
       variables:      prepare_variables(item[:variables]),
       context:        {
-        headers:   request.headers,
-        workspace_id: @workspace.id,
+        headers:        request.headers,
+        workspace_id:   @workspace.id,
         environment_id: @workspace.environments.first.id,
         **gql_devise_context(User)
       }
