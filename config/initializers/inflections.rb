@@ -17,4 +17,5 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   #   inflect.acronym 'RESTful'
   inflect.acronym "DB"
   inflect.acronym "AWS"
+  inflect.acronym "RdsClient"
 end

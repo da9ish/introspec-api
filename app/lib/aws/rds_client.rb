@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module AWS
-  class RDSClient
+  class RdsClient
     # credentials -> https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Credentials.html
     # region -> string
 

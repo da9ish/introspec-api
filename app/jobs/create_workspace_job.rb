@@ -11,7 +11,7 @@ class CreateWorkspaceJob < ApplicationJob
     workspace = Workspace.find_by(identifier: workspace_identifier)
     bucket_name = "#{workspace[:identifier]}-#{SecureRandom.uuid}"
 
-    # db_client = ::AWS::RDSClient.new("ap-south-1", workspace[:identifier])
+    # db_client = ::AWS::RdsClient.new("ap-south-1", workspace[:identifier])
     # storage_client = ::AWS::S3Client.new("ap-south-1", bucket_name)
 
     # username = "#{workspace[:identifier]}_api_live"

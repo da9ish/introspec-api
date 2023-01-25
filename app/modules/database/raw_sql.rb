@@ -61,7 +61,7 @@ module Database
       end
     end
 
-    def add_column(name, columns, )
+    # def add_column(name, columns)
 
     def list_tables
       `
