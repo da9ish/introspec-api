@@ -3,8 +3,8 @@
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require_relative "../app/lib/introspec/graphql_test_helper"
-require_relative "../app/lib/aws/database"
-require_relative "../app/lib/aws/storage"
+require_relative "../app/lib/aws/rds_client"
+require_relative "../app/lib/aws/s3_client"
 require "rails/test_help"
 
 module ActiveSupport

@@ -9,7 +9,10 @@ module Storage
     def initialize
       @storage = nil
       if bucket_exist?
-        @storage = ::AWS::S3.new(instance.region, credentials, instance.identifier)
+        @storage = ::AWS::S3.new(instance.region,
+                                 instance.identifier,
+                                 access_key_id:     ENV.fetch("AWS_ACCESS_KEY", nil),
+                                 secret_access_key: ENV.fetch("AWS_SECRET_KEY", nil))
       else
         "error: Please create a bucket"
       end
@@ -32,7 +35,7 @@ module Storage
     end
 
     def instance
-      @instance ||= ::Storage::Instance.find_by_workspace_id(workspace_id: Current.workspace.id)
+      @instance ||= ::Storage::Instance.find_by_workspace_id(workspace_id: context[:workspace_id])
     end
   end
 end

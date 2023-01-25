@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
-class ApplicationQuery < ::Introspec::QueryType
+class ApplicationQuery < Introspec::QueryType
   query ::CurrentAccount, authenticate: false
-  query ::Schema, authenticate: true
+  query ::CurrentWorkspace, authenticate: true
   query ::UsersList, authenticate: true
+
+  query ::Database::Schema, authenticate: true
+  query ::Storage::Directory, authenticate: true
 
   # test
   query ::TestField, authenticate: false

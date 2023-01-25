@@ -5,7 +5,8 @@ module Types
     field :id, ID, null: false
     field :identifier, String, null: false
     field :name, String, null: false
-    field :logo, String, null: false
+    field :logo, String, null: true
+    field :public_api_key, String, null: false
     field :environments, [::Types::Environment], null: true
   end
 end

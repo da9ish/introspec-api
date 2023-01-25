@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class CreateWorkspaceTest < ::ActiveSupport::TestCase
+class CreateWorkspaceTest < ActiveSupport::TestCase
   include Introspec::GraphqlTestHelper
 
   test "create workspace mutation test" do

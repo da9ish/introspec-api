@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class TestFieldTest < ::ActiveSupport::TestCase
+class TestFieldTest < ActiveSupport::TestCase
   include Introspec::GraphqlTestHelper
 
   test "test_field query" do

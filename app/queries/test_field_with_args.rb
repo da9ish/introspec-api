@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class TestFieldWithArgs < ::Introspec::BaseQuery
+class TestFieldWithArgs < Introspec::BaseQuery
   type String, null: false
 
   argument :test_param, String, required: true

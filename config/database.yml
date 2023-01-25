@@ -5,7 +5,7 @@ default: &default
 
 development:
   <<: *default
-  database: introspec_api_development
+  database: introspec_api
   username: introspec_api
   password: introspec_api
   host: localhost
@@ -13,6 +13,11 @@ development:
   # Schema search path. The server defaults to $user,public
   #schema_search_path: myapp,sharedapp,public
   #min_messages: notice
+  # database: introspec_api_staging
+  # username: introspec_api_staging
+  # password: PwyCL2DV6KMqag3sQ4LyDwX6eJ3Ggyzu
+  # host: dpg-cf4k4rpa6gdtfg351c20-a.frankfurt-postgres.render.com
+  # port: 5432
 
 test:
   <<: *default
