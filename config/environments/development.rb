@@ -17,7 +17,7 @@ Rails.application.configure do
   config.consider_all_requests_local = true
 
   config.hosts << /[a-z0-9]+\.lvh\.me/
-  config.force_ssl = true
+  config.force_ssl = false
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
