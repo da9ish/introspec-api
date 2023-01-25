@@ -2,7 +2,7 @@
 
 class GraphqlController < ApplicationController
   include GraphqlDevise::SetUserByToken
-  include SetCurrentRequestDetails
+  # include SetCurrentRequestDetails
 
   # If accessing from outside this domain, nullify the session
   # This allows for outside API access while preventing CSRF attacks,
@@ -28,7 +28,8 @@ class GraphqlController < ApplicationController
       operation_name: item[:operationName],
       variables:      prepare_variables(item[:variables]),
       context:        {
-        headers: request.headers,
+        workspace_id:   request.headers["workspace-id"],
+        environment_id: request.headers["environment-id"],
         **gql_devise_context(User)
       }
     }

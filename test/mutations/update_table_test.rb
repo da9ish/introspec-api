@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class UpdateTableTest < ::ActiveSupport::TestCase
+class UpdateTableTest < ActiveSupport::TestCase
   include Introspec::GraphqlTestHelper
 
   test "update table mutation test" do
@@ -11,7 +11,8 @@ class UpdateTableTest < ::ActiveSupport::TestCase
       result = execute(mutation, { input: {
                          id:         122_001_029,
                          name:       "test1",
-                         identifier: "test1"
+                         identifier: "test1",
+                         columns:    []
                        } })
 
       assert result["errors"].nil?, "Test field query failed. ERR: #{result['errors']}"

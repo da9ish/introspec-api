@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class TestField < ::Introspec::BaseQuery
+class TestField < Introspec::BaseQuery
   type String, null: false
 
   def resolve

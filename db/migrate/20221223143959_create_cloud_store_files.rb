@@ -5,7 +5,7 @@ class CreateCloudStoreFiles < ActiveRecord::Migration[6.1]
     create_table :files do |t|
       t.string :name, null: false
       t.string :identifier, null: false
-      t.string :size, null: false
+      t.bigint :size, null: false
       t.string :file_type, null: false
       t.string :relative_path, null: false
       t.references :folder

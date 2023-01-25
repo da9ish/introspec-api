@@ -15,6 +15,7 @@ gem "bcrypt", "~> 3.1", ">= 3.1.18"
 gem "devise", "~> 4.8", ">= 4.8.1"
 gem "devise_token_auth", "~> 1.1.5"
 gem "graphiql-rails", "~> 1.8"
+gem "graphql-batch", "~> 0.5.1"
 gem "graphql_devise", "~> 1.1"
 gem "jbuilder", "~> 2.7"
 gem "net-imap", require: false
@@ -24,7 +25,7 @@ gem "omniauth", "~> 2.0", ">= 2.0.4"
 gem "puma", "~> 5.6", ">= 5.6.5"
 gem "rack-cors", "~> 1.1", ">= 1.1.1"
 gem "redis", "~> 4.0"
-gem "rubocop", "~> 1.23", require: false
+gem "rubocop", "~> 1.42", require: false
 gem "rubocop-rails", "~> 2.12", ">= 2.12.4", require: false
 
 # Reduces boot times through caching; required in config/boot.rb

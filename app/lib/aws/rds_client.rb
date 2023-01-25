@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module AWS
-  class Database
+  class RDSClient
     # credentials -> https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Credentials.html
     # region -> string
 
@@ -9,8 +9,8 @@ module AWS
       @identifier = identifier || ""
       @client = Aws::RDS::Client.new(
         region:            region_name,
-        access_key_id:     ENV["AWS_ACCESS_KEY"],
-        secret_access_key: ENV["AWS_SECRET_KEY"]
+        access_key_id:     ENV.fetch("AWS_ACCESS_KEY", nil),
+        secret_access_key: ENV.fetch("AWS_SECRET_KEY", nil)
       )
     end
 

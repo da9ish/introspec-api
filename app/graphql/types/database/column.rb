@@ -7,9 +7,13 @@ module Types
       field :table_id, ID, null: false
       field :identifier, String, null: false
       field :name, String, null: false
-      field :data_type, String
+      field :data_type, ::Types::DataTypeEnum, null: false
+      field :default_value, String
+      field :is_array, Boolean
       field :is_indexed, Boolean
-      field :constraints, [String]
+      field :is_primary, Boolean
+      field :is_unique, Boolean
+      field :is_nullable, Boolean
     end
   end
 end

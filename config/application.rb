@@ -30,8 +30,8 @@ module IntrospecApi
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
-    config.autoload_paths += %W[#{config.root}/app/models/configurations]
-    config.reload_classes_only_on_change = true
+    # config.autoload_paths += %W[#{config.root}/app/models]
+    # config.reload_classes_only_on_change = true
 
     # Configuration for the application, engines, and railties goes here.
     #

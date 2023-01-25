@@ -6,9 +6,9 @@ module Types
       field :bucket, ::Types::Storage::Bucket, null: false
       field :path, String, null: false
       field :parent_folder, ::Types::Storage::Folder, null: true
-      field :folders, [::Types::Storage::Folder], null: true
-      field :sub_folders, [::Types::Storage::Folder], null: true
-      field :files, [::Types::Storage::File], null: true
+      field :folders, [::Types::Storage::Folder], null: false
+      field :sub_folders, [::Types::Storage::Folder], null: false
+      field :files, [::Types::Storage::File], null: false
     end
   end
 end

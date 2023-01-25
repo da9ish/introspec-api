@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module AWS
-  class Storage
+  class S3Client
     # credentials -> https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Credentials.html
     # region -> string
 
@@ -10,8 +10,8 @@ module AWS
       @region_name = region_name || ""
       @client = Aws::S3::Client.new(
         region:            region_name,
-        access_key_id:     ENV["AWS_ACCESS_KEY"],
-        secret_access_key: ENV["AWS_SECRET_KEY"]
+        access_key_id:     ENV.fetch("AWS_ACCESS_KEY", nil),
+        secret_access_key: ENV.fetch("AWS_SECRET_KEY", nil)
       )
     end
 

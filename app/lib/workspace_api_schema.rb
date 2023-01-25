@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency Rails.root.join("app/queries/workspace_query")
+
 class WorkspaceApiSchema < GraphQL::Schema
   use GraphqlDevise::SchemaPlugin.new(
     query:            ::WorkspaceQuery,
@@ -10,6 +12,7 @@ class WorkspaceApiSchema < GraphQL::Schema
                                         })
     ]
   )
+  require_dependency Rails.root.join("app/queries/workspace_query")
 
   mutation(::WorkspaceMutation)
   query(::WorkspaceQuery)

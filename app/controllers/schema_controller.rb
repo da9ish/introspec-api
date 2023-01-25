@@ -1,14 +1,21 @@
 # frozen_string_literal: true
 
+require_dependency "introspec/generate_schema"
+
 class SchemaController < ApplicationController
   include GraphqlDevise::SetUserByToken
   include SetCurrentRequestDetails
+
   # If accessing from outside this domain, nullify the session
   # This allows for outside API access while preventing CSRF attacks,
   # but you'll have to authenticate your user separately
   # protect_from_forgery with: :null_session
 
-  before_action -> { set_resource_by_token(User) }
+  before_action do
+    set_resource_by_token(User)
+    require_dependency Rails.root.join("app/queries/workspace_query")
+    require_dependency Rails.root.join("app/lib/introspec/generate_schema")
+  end
 
   def execute
     query = params[:query]

@@ -9,6 +9,6 @@ module Workspaceable
     validates :workspace, :enviroment, presence: true
     validates :enviroment, inclusion: { in: ENVIRONMENTS, message: "'%{value}' is not one of #{ENVIRONMENTS.to_sentence}" }
 
-    default_scope { where(workspace: Current.workspace, enviroment: Current.env) }
+    default_scope { where(workspace: Current.workspace, enviroment: Current.environment) }
   end
 end

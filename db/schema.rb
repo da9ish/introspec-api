@@ -30,13 +30,21 @@ ActiveRecord::Schema.define(version: 2022_12_23_144000) do
     t.string "identifier", null: false
     t.string "name", null: false
     t.string "data_type", null: false
+    t.boolean "default_value"
+    t.boolean "is_array", default: false
     t.boolean "is_indexed", default: false
-    t.string "constraints", default: [], array: true
+    t.boolean "is_primary", default: false
+    t.boolean "is_unique", default: false
+    t.boolean "is_nullable", default: false
     t.bigint "table_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["identifier", "table_id"], name: "index_columns_on_identifier_and_table_id", unique: true
+    t.index ["is_array"], name: "index_columns_on_is_array"
     t.index ["is_indexed"], name: "index_columns_on_is_indexed"
+    t.index ["is_nullable"], name: "index_columns_on_is_nullable"
+    t.index ["is_primary"], name: "index_columns_on_is_primary"
+    t.index ["is_unique"], name: "index_columns_on_is_unique"
     t.index ["name"], name: "index_columns_on_name"
     t.index ["table_id"], name: "index_columns_on_table_id"
   end
@@ -95,7 +103,7 @@ ActiveRecord::Schema.define(version: 2022_12_23_144000) do
   create_table "files", force: :cascade do |t|
     t.string "name", null: false
     t.string "identifier", null: false
-    t.string "size", null: false
+    t.bigint "size", null: false
     t.string "file_type", null: false
     t.string "relative_path", null: false
     t.bigint "folder_id"

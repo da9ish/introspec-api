@@ -1,7 +1,6 @@
 column_name:
   identifier: 'name'
   name: 'Name'
-  data_type: 'VARCHAR'
-  constraints: [UNIQUE]
+  data_type: 'varchar'
   is_indexed: true
   table: table_user

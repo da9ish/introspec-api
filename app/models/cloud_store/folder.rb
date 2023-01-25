@@ -27,5 +27,9 @@ module CloudStore
                              class_name: "::CloudStore::File",
                              dependent:  :destroy
                            })
+
+    def size
+      files.map(&:size).sum + sub_folders.map(&:size).sum
+    end
   end
 end

@@ -6,7 +6,11 @@ module Types
       field :id, ID, null: false
       field :name, String, null: false
       field :identifier, String, null: false
-      field :columns, [::Types::Database::Column]
+      field :cols, [::Types::Database::Column]
+
+      def cols
+        AssociationLoader.for(::Datum::Table, :columns).load(object)
+      end
     end
   end
 end

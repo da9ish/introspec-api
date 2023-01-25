@@ -19,7 +19,7 @@ module Onboard
     end
 
     def user
-      @user ||= User.find(Current.user.id)
+      @user ||= User.find(context[:current_resource].id)
     end
   end
 end

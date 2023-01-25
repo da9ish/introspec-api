@@ -1,0 +1,15 @@
+introspec:
+  database:               introspec_api
+  identifier:             "introspec-api-database"
+  name:                   "Introspec API Database"
+  username:               "introspec_api_staging"
+  encrypted_password:     "PwyCL2DV6KMqag3sQ4LyDwX6eJ3Ggyzu"
+  host:                   "dpg-cf4k4rpa6gdtfg351c20-a.frankfurt-postgres.render.com"
+  port:                   "5432"
+  allocated_storage:      5
+  db_instance_class:      "Postgres"
+  db_instance_identifier: "postgres"
+  engine:                 "postgres"
+  db_name:                "introspec_api_staging"
+  status:                 "available"
+  raw_response:           "{}"
