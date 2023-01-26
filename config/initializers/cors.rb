@@ -9,7 +9,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins "*.introspec.app"
+    origins "*"
     resource "*", headers: :any, methods: %i[get post patch put option]
   end
 end
